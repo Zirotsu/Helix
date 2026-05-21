@@ -1360,8 +1360,40 @@ section {
   .case-header { grid-template-columns: 1fr; gap: 16px; align-items: start; }
   .pro-section { padding: 32px; }
   .support-section { padding: 32px; }
-  nav { top: 16px; padding: 8px 12px; gap: 4px; }
-  nav a { padding: 6px 10px; font-size: 11px; }
+
+  /* Nav: compact pill centred, no animation fighting position */
+  nav {
+    top: 10px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    animation: none !important;
+    width: calc(100vw - 20px);
+    max-width: 640px;
+    padding: 6px 8px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    scrollbar-width: none;
+    justify-content: flex-start;
+    box-sizing: border-box;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav .brand { font-size: 14px; padding: 4px 8px; flex-shrink: 0; }
+  nav a { padding: 4px 10px; font-size: 11px; flex-shrink: 0; white-space: nowrap; }
+  nav .brand .dot { animation: none !important; }
+
+  /* Kill expensive effects on touch devices */
+  *, *::before, *::after {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .pillar, .meta-cell, .agent-tile, .tier-card, .pro-tile, .scenario,
+  .formula-cell, .contact-card, .twin-case, .pro-section, .support-section,
+  .case-mockup, .logo-slot, .dna-mute {
+    background: rgba(10, 11, 36, 0.78) !important;
+  }
+  nav { background: rgba(5, 6, 20, 0.92) !important; }
+  .glow { animation: none !important; }
 }
 
 /* Phone · 720px and below */
@@ -1377,26 +1409,10 @@ section {
   .hero-stat .number { font-size: 36px; }
   .hero-stat .stat-label { font-size: 9px; }
 
-  /* nav: small floating pill, centred, no horizontal scroll — keep the animation off
-     so the keyframes don't fight our positioning */
-  nav {
-    top: 10px;
-    left: 50%;
-    right: auto;
-    transform: translateX(-50%);
-    animation: none !important;
-    width: calc(100vw - 20px);
-    max-width: 480px;
-    padding: 6px 8px;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    scrollbar-width: none;
-    justify-content: flex-start;
-    box-sizing: border-box;
-  }
-  nav::-webkit-scrollbar { display: none; }
-  nav .brand { font-size: 13px; padding: 4px 8px; flex-shrink: 0; }
-  nav a { padding: 4px 8px; font-size: 10px; flex-shrink: 0; white-space: nowrap; }
+  /* nav already styled in the 1024px breakpoint — here just trim further */
+  nav { max-width: 480px; }
+  nav .brand { font-size: 13px; }
+  nav a { padding: 4px 8px; font-size: 10px; }
 
   /* section headers */
   .section-header { flex-direction: column; align-items: flex-start; gap: 8px; }
@@ -1463,24 +1479,8 @@ section {
   .contact-value { font-size: 16px; }
   .close-footer { flex-direction: column; gap: 8px; align-items: flex-start; }
 
-  /* Performance: backdrop-filter over a constantly-redrawn WebGL canvas tanks
-     mobile GPUs. Drop it everywhere on small screens; use a flat translucent fill instead. */
-  *, *::before, *::after {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-  .pillar, .meta-cell, .agent-tile, .tier-card, .pro-tile, .scenario,
-  .formula-cell, .contact-card, .twin-case, .pro-section, .support-section,
-  .case-mockup, nav, .logo-slot, .dna-mute {
-    background: rgba(10, 11, 36, 0.78) !important;
-  }
-
-  /* Floating glow blobs are repainted every animation tick — also expensive
-     stacked on the WebGL canvas. Freeze them on mobile. */
-  .glow { animation: none !important; }
-
   /* Reveal pulse-pause: avoid the brand dot pulsing at 60fps */
-  nav .brand .dot { animation: none !important; }
+  /* (already disabled in 1024px breakpoint) */
 
   /* DNA canvas — soften further on mobile so text wins */
   #dna-canvas { opacity: 0.35; }
@@ -1826,7 +1826,7 @@ nav {
   
   <div class="case-mockup reveal">
     <div class="case-mockup-frame">
-      <img src="assets/case-mockup-1.png" loading="lazy" decoding="async" alt="Case mockup" alt="Zyphor Dashboard" class="case-mockup-image">
+      <img src="assets/case-mockup-1.png" decoding="async" alt="Zyphor Dashboard" class="case-mockup-image">
     </div>
   </div>
   
@@ -2106,7 +2106,7 @@ nav {
         </div>
       </div>
       <div class="twin-visual">
-        <img src="assets/case-mockup-2.png" loading="lazy" decoding="async" alt="Case mockup" alt="PymeManager">
+        <img src="assets/case-mockup-2.png" decoding="async" alt="PymeManager">
       </div>
     </article>
     
@@ -2247,11 +2247,40 @@ if (mockup) {
 
 <!-- DNA 3D — replaced by Claude's helix -->
 <script type="module">
-import * as THREE from 'three';
-import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-import { RenderPass }     from 'three/addons/postprocessing/RenderPass.js';
-import { UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js';
-import { OutputPass }     from 'three/addons/postprocessing/OutputPass.js';
+/* Skip the heavy WebGL helix entirely on mobile/tablet — replace with a
+   lightweight CSS-only DNA backdrop. MeshPhysicalMaterial with transmission +
+   bloom postprocessing destroys mobile GPUs. */
+const isMobileViewport = window.matchMedia('(max-width: 1024px), (hover: none) and (pointer: coarse)').matches;
+if (isMobileViewport) {
+  /* Static fallback: show the pre-rotated DNA strand as a fixed-position image
+     with very low opacity so the content is fully readable */
+  const fallback = document.createElement('div');
+  fallback.id = 'dna-fallback';
+  fallback.setAttribute('aria-hidden', 'true');
+  fallback.style.cssText = `
+    position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      radial-gradient(ellipse at 50% 30%, rgba(6, 214, 255, 0.10), transparent 60%),
+      radial-gradient(ellipse at 50% 70%, rgba(124, 58, 237, 0.08), transparent 60%),
+      url('assets/dna-strand.png') center / contain no-repeat;
+    opacity: 0.16;
+    filter: blur(0.5px);
+  `;
+  document.body.appendChild(fallback);
+  const cv = document.getElementById('dna-canvas');
+  if (cv) cv.style.display = 'none';
+} else {
+  /* Desktop: full WebGL helix */
+  import('https://unpkg.com/three@0.160.0/build/three.module.js').then(THREE_NS => {
+    return Promise.all([
+      THREE_NS,
+      import('https://unpkg.com/three@0.160.0/examples/jsm/postprocessing/EffectComposer.js'),
+      import('https://unpkg.com/three@0.160.0/examples/jsm/postprocessing/RenderPass.js'),
+      import('https://unpkg.com/three@0.160.0/examples/jsm/postprocessing/UnrealBloomPass.js'),
+      import('https://unpkg.com/three@0.160.0/examples/jsm/postprocessing/OutputPass.js'),
+    ]);
+  }).then(([THREE, ECMod, RPMod, UBPMod, OPMod]) => {
+    const { EffectComposer } = ECMod, { RenderPass } = RPMod, { UnrealBloomPass } = UBPMod, { OutputPass } = OPMod;
 
 const canvas = document.getElementById('dna-canvas');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
@@ -2496,6 +2525,8 @@ onScroll();
 tick();
 
 window.__dna = { DNA, camera, state, scene };
+  });
+}
 </script>
 
 </body>
