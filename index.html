@@ -48,8 +48,6 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  max-width: 100vw;
 }
 
 /* Animated background gradient */
@@ -1379,22 +1377,26 @@ section {
   .hero-stat .number { font-size: 36px; }
   .hero-stat .stat-label { font-size: 9px; }
 
-  /* nav: stays horizontal but compacts; switch to top bar */
+  /* nav: small floating pill, centred, no horizontal scroll — keep the animation off
+     so the keyframes don't fight our positioning */
   nav {
-    top: 8px;
-    left: 12px;
-    right: 12px;
-    transform: none;
-    width: auto;
-    max-width: none;
+    top: 10px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    animation: none !important;
+    width: calc(100vw - 20px);
+    max-width: 480px;
     padding: 6px 8px;
     overflow-x: auto;
     flex-wrap: nowrap;
     scrollbar-width: none;
+    justify-content: flex-start;
+    box-sizing: border-box;
   }
   nav::-webkit-scrollbar { display: none; }
-  nav .brand { font-size: 12px; padding: 4px 8px; flex-shrink: 0; }
-  nav a { padding: 4px 8px; font-size: 10px; flex-shrink: 0; }
+  nav .brand { font-size: 13px; padding: 4px 8px; flex-shrink: 0; }
+  nav a { padding: 4px 8px; font-size: 10px; flex-shrink: 0; white-space: nowrap; }
 
   /* section headers */
   .section-header { flex-direction: column; align-items: flex-start; gap: 8px; }
@@ -1460,6 +1462,25 @@ section {
   .contact-label { font-size: 10px; }
   .contact-value { font-size: 16px; }
   .close-footer { flex-direction: column; gap: 8px; align-items: flex-start; }
+
+  /* Performance: backdrop-filter over a constantly-redrawn WebGL canvas tanks
+     mobile GPUs. Drop it everywhere on small screens; use a flat translucent fill instead. */
+  *, *::before, *::after {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .pillar, .meta-cell, .agent-tile, .tier-card, .pro-tile, .scenario,
+  .formula-cell, .contact-card, .twin-case, .pro-section, .support-section,
+  .case-mockup, nav, .logo-slot, .dna-mute {
+    background: rgba(10, 11, 36, 0.78) !important;
+  }
+
+  /* Floating glow blobs are repainted every animation tick — also expensive
+     stacked on the WebGL canvas. Freeze them on mobile. */
+  .glow { animation: none !important; }
+
+  /* Reveal pulse-pause: avoid the brand dot pulsing at 60fps */
+  nav .brand .dot { animation: none !important; }
 
   /* DNA canvas — soften further on mobile so text wins */
   #dna-canvas { opacity: 0.35; }
