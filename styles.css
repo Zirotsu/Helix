@@ -199,6 +199,8 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* Contener glows que se desbordan vertical/horizontalmente */
+  overflow: clip;
 }
 
 .glow {
@@ -1395,7 +1397,7 @@ section {
 .close-section .glow.violet {
   width: clamp(320px, 45vw, 600px);
   height: clamp(320px, 45vw, 600px);
-  bottom: 0; left: -200px;
+  bottom: -150px; left: -200px;
   background: radial-gradient(circle, rgba(124, 58, 237, 0.4), transparent 70%);
   animation: float2 20s ease-in-out infinite;
 }
@@ -1816,4 +1818,339 @@ img {
     color: black !important;
   }
   section { page-break-inside: avoid; min-height: auto; }
+}
+
+/* ============================================================
+   HELIXFIX · RESPONSIVE HARDENING PATCH
+   Corrige overflow horizontal, mejora layouts mobile y limita
+   el ancho visual de los paneles con efecto transparente/glass.
+   ============================================================ */
+
+:root {
+  --glass-max-width: 1120px;
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  min-width: 320px;
+}
+
+*,
+*::before,
+*::after {
+  min-width: 0;
+}
+
+section {
+  width: min(100%, 1280px);
+}
+
+/* Limita el ancho de los bloques principales con fondo transparente/glass */
+.case-mockup,
+.pro-section,
+.support-section,
+.twin-case {
+  width: 100%;
+  max-width: var(--glass-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.case-body,
+.zyphor-capabilities,
+.pricing-tiers,
+.support-header,
+.support-formula,
+.scenarios,
+.twin-cases,
+.contact-grid,
+.close-hero {
+  width: 100%;
+  max-width: var(--glass-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Evita que textos largos rompan el ancho en tablets/móviles */
+.hero-brand-tag,
+.hero-meta,
+.section-meta,
+.case-num,
+.case-status,
+.meta-value,
+.agent-tile-name,
+.agent-tile-desc,
+.pro-price,
+.tier-label,
+.tier-scope,
+.formula-label,
+.scenario-name,
+.scenario-price,
+.twin-num,
+.twin-tagline,
+.tag,
+.contact-value,
+.close-footer-left,
+.close-footer-right {
+  overflow-wrap: anywhere;
+}
+
+.case-status,
+.pro-price,
+.scenario-price {
+  white-space: normal;
+}
+
+/* El canvas con 100vw puede crear micro-scrollbars en algunos navegadores */
+#dna-canvas {
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --glass-max-width: 920px;
+  }
+
+  .case-mockup,
+  .pro-section,
+  .support-section,
+  .twin-case {
+    border-radius: 28px;
+  }
+
+  .case-logo-lockup {
+    gap: 14px;
+  }
+}
+
+@media (max-width: 900px) {
+  :root {
+    --glass-max-width: 760px;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .case-header,
+  .section-header {
+    gap: 14px;
+  }
+}
+
+@media (max-width: 720px) {
+  :root {
+    --section-padding-x: clamp(18px, 5vw, 28px);
+    --section-padding-y: clamp(56px, 12vw, 84px);
+    --glass-max-width: 100%;
+  }
+
+  section {
+    padding-left: var(--section-padding-x);
+    padding-right: var(--section-padding-x);
+    overflow: hidden;
+  }
+
+  .hero {
+    min-height: auto;
+    padding-top: 104px;
+  }
+
+  .hero-content {
+    margin-top: 48px;
+  }
+
+  .hero-title {
+    height: clamp(54px, 17vw, 92px);
+    margin-bottom: 34px;
+  }
+
+  .hero-subtitle {
+    margin-bottom: 42px;
+  }
+
+  .hero-stats {
+    padding-top: 28px;
+  }
+
+  .section-header {
+    margin-bottom: 48px;
+  }
+
+  .who-statement {
+    margin-bottom: 36px;
+  }
+
+  .who-paragraph {
+    margin-bottom: 48px;
+  }
+
+  .case-logo-lockup {
+    align-items: flex-start;
+  }
+
+  .case-status {
+    width: fit-content;
+    max-width: 100%;
+    line-height: 1.45;
+  }
+
+  .case-mockup,
+  .pro-section,
+  .support-section,
+  .twin-case {
+    border-radius: 24px;
+  }
+
+  .case-body,
+  .agents-grid,
+  .tiers-grid,
+  .support-formula,
+  .scenarios,
+  .contact-grid {
+    margin-bottom: 44px;
+  }
+
+  .support-section .support-formula,
+  .support-section .scenarios {
+    margin-bottom: 28px;
+  }
+
+  .scenario-price {
+    align-self: flex-start;
+  }
+
+  .twin-case {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 560px) {
+  nav {
+    justify-content: space-between;
+  }
+
+  nav .brand {
+    padding-right: 8px;
+    max-width: calc(100% - 48px);
+  }
+
+  nav .brand .brand-logo {
+    max-width: 180px;
+    height: auto;
+    max-height: 20px;
+  }
+
+  .hero-top {
+    padding-top: 20px;
+  }
+
+  .hero-brand-mark {
+    height: 46px;
+  }
+
+  .hero-brand-tag,
+  .hero-meta,
+  .section-meta,
+  .case-num,
+  .twin-num,
+  .contact-label,
+  .close-pre {
+    letter-spacing: 0.18em;
+  }
+
+  .hero-eyebrow {
+    letter-spacing: 0.22em;
+    gap: 10px;
+  }
+
+  .hero-stats,
+  .case-meta-row,
+  .agents-grid,
+  .pro-grid,
+  .tiers-grid,
+  .support-formula,
+  .scenarios,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pillar,
+  .meta-cell,
+  .agent-tile,
+  .pro-tile,
+  .tier-card,
+  .formula-cell,
+  .scenario,
+  .contact-card {
+    border-radius: 18px;
+  }
+
+  .twin-visual {
+    min-height: 190px;
+  }
+
+  .close-title {
+    font-size: clamp(46px, 18vw, 86px);
+  }
+}
+
+@media (max-width: 420px) {
+  :root {
+    --section-padding-x: 16px;
+  }
+
+  nav {
+    width: calc(100% - 16px);
+    max-width: calc(100% - 16px);
+  }
+
+  nav .brand .brand-logo {
+    max-width: 150px;
+  }
+
+  .hero-brand {
+    max-width: 100%;
+  }
+
+  .hero-brand-text {
+    width: 100%;
+  }
+
+  .hero-title {
+    height: clamp(46px, 16vw, 68px);
+  }
+
+  .hero-subtitle,
+  .who-paragraph,
+  .case-text,
+  .subsection-desc,
+  .twin-desc,
+  .close-sub {
+    font-size: 14.5px;
+  }
+
+  .case-mockup,
+  .pro-section,
+  .support-section,
+  .twin-case {
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .pro-section::before {
+    right: 14px;
+    top: 10px;
+  }
+
+  .tag {
+    max-width: 100%;
+  }
 }
