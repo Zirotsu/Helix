@@ -257,26 +257,67 @@ section {
 .hero-top {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   margin-bottom: auto;
-  padding-top: 40px;
+  padding: 40px 0 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   position: relative;
   z-index: 5;
 }
 
-.logo-slot {
-  width: 200px;
-  height: 56px;
-  border: 1px dashed var(--ink-faint);
-  border-radius: 8px;
+.hero-brand {
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: var(--ink-mute);
-  font-size: 10px;
+  gap: 18px;
+  position: relative;
+}
+.hero-brand-mark {
+  height: 76px;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 0 24px rgba(34, 211, 238, 0.22));
+}
+.hero-brand-rule {
+  width: 1px;
+  height: 56px;
+  background: linear-gradient(to bottom, transparent, rgba(34, 211, 238, 0.45), transparent);
+}
+.hero-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.hero-brand-name {
   font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.35em;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  color: var(--ink);
+  font-weight: 600;
+}
+.hero-brand-tag {
+  font-family: 'Geist Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  line-height: 1.5;
+}
+.hero-brand-tag span {
+  color: var(--cyan-soft);
+}
+
+nav .brand {
+  display: flex;
+  align-items: center;
+  padding: 0 14px 0 4px;
+  gap: 0;
+}
+nav .brand .brand-logo {
+  height: 22px;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.28));
 }
 
 .hero-meta {
@@ -316,15 +357,36 @@ section {
 }
 
 .hero-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(80px, 18vw, 260px);
-  line-height: 0.85;
-  letter-spacing: -0.05em;
-  margin-bottom: 50px;
-  color: var(--ink);
-  position: relative;
   display: inline-block;
+  margin-bottom: 50px;
+  position: relative;
+  height: clamp(70px, 13vw, 180px);
 }
+.hero-title-logo {
+  height: 100%;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 0 36px rgba(34, 211, 238, 0.32)) drop-shadow(0 0 12px rgba(124, 58, 237, 0.22));
+}
+.hero-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -14px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--violet), transparent 80%);
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s, opacity 0.6s 0.6s;
+}
+.hero-title.visible::after {
+  opacity: 0.7;
+  transform: scaleX(1);
+}
+
+/* legacy em styles — unused after logo swap, kept for safety */
 .hero-title em {
   font-style: italic;
   font-weight: 400;
@@ -597,6 +659,66 @@ section {
 }
 .case-name .accent {
   color: var(--cyan);
+}
+
+.case-logo-lockup {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+  padding: 6px 0;
+}
+.case-logo-img {
+  height: clamp(48px, 6vw, 84px);
+  width: auto;
+  display: block;
+  filter:
+    drop-shadow(0 0 8px rgba(34, 211, 238, 0.65))
+    drop-shadow(0 0 28px rgba(34, 211, 238, 0.45))
+    drop-shadow(0 0 60px rgba(34, 211, 238, 0.25));
+  image-rendering: auto;
+  -webkit-backface-visibility: hidden;
+  animation: zyphorPulse 4s ease-in-out infinite;
+}
+@keyframes zyphorPulse {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 8px rgba(34, 211, 238, 0.65))
+      drop-shadow(0 0 28px rgba(34, 211, 238, 0.45))
+      drop-shadow(0 0 60px rgba(34, 211, 238, 0.25));
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 12px rgba(34, 211, 238, 0.85))
+      drop-shadow(0 0 40px rgba(34, 211, 238, 0.55))
+      drop-shadow(0 0 80px rgba(34, 211, 238, 0.32));
+  }
+}
+.case-logo-by {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  padding-left: 22px;
+  border-left: 1px solid rgba(34, 211, 238, 0.35);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+}
+.case-logo-by::before {
+  content: 'PRODUCTO';
+  display: block;
+  color: var(--cyan-soft);
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  margin-bottom: 4px;
+}
+.case-logo-by strong {
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.2em;
 }
 
 .case-status {
@@ -1379,6 +1501,7 @@ section {
   }
   nav::-webkit-scrollbar { display: none; }
   nav .brand { font-size: 14px; padding: 4px 8px; flex-shrink: 0; }
+  nav .brand .brand-logo { height: 20px; }
   nav a { padding: 4px 10px; font-size: 11px; flex-shrink: 0; white-space: nowrap; }
   nav .brand .dot { animation: none !important; }
 
@@ -1673,7 +1796,7 @@ nav {
 
 <!-- NAV -->
 <nav>
-  <div class="brand"><span class="dot"></span>Helix</div>
+  <div class="brand"><img class="brand-logo" src="assets/helixfix-logo-horizontal.png" alt="HelixFix"></div>
   <a href="#who">Estudio</a>
   <a href="#zyphor">Zyphor</a>
   <a href="#cases">Casos</a>
@@ -1688,7 +1811,13 @@ nav {
   <div class="glow violet"></div>
   
   <div class="hero-top">
-    <div class="logo-slot reveal">[ Logo · Helix ]</div>
+    <div class="hero-brand reveal">
+      <img class="hero-brand-mark" src="assets/helixfix-mark.png" alt="">
+      <div class="hero-brand-rule"></div>
+      <div class="hero-brand-text">
+        <div class="hero-brand-tag" style="font-size:10px">Consultoría Tecnológica<br><span>Santiago · Chile · MMXXVI</span></div>
+      </div>
+    </div>
     <div class="hero-meta reveal reveal-1">
       <div>Portfolio</div>
       <div>2026 · Edición</div>
@@ -1697,7 +1826,7 @@ nav {
   
   <div class="hero-content">
     <div class="hero-eyebrow reveal">Software · IA · Empresas</div>
-    <h1 class="hero-title reveal reveal-1">He<em>lix</em></h1>
+    <h1 class="hero-title reveal reveal-1"><img class="hero-title-logo" src="assets/helixfix-logo-hero.png" alt="HelixFix"></h1>
     <p class="hero-subtitle reveal reveal-2">
       Construyo <strong>software con inteligencia artificial</strong> para empresas que necesitan 
       automatizar lo que importa, sin sacrificar control ni privacidad.
@@ -1801,7 +1930,10 @@ nav {
   
   <div class="case-header reveal">
     <span class="case-num">02 / 04 · Caso</span>
-    <h2 class="case-name">Zyphor<span class="accent">.</span></h2>
+    <div class="case-name case-logo-lockup">
+      <img class="case-logo-img" src="assets/zyphor-logo.png" alt="ZyphorAI">
+      <span class="case-logo-by">by <strong>HelixFix</strong></span>
+    </div>
     <span class="case-status">En producción · Chile + USA</span>
   </div>
   
