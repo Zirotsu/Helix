@@ -199,8 +199,6 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* Contener glows que se desbordan vertical/horizontalmente */
-  overflow: clip;
 }
 
 .glow {
@@ -1397,7 +1395,7 @@ section {
 .close-section .glow.violet {
   width: clamp(320px, 45vw, 600px);
   height: clamp(320px, 45vw, 600px);
-  bottom: -150px; left: -200px;
+  bottom: 0; left: -200px;
   background: radial-gradient(circle, rgba(124, 58, 237, 0.4), transparent 70%);
   animation: float2 20s ease-in-out infinite;
 }
