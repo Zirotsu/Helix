@@ -2,1778 +2,22 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Helix · Portfolio 2026</title>
+
+<!-- Fuentes -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500&family=Geist:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<!-- Iconos -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
-<style>
-/* ============================================================
-   HELIX · PORTFOLIO WEB · 2026
-   Versión interactiva con animaciones reales + 3D
-   ============================================================ */
 
-:root {
-  --bg-deep: #050614;
-  --bg-mid: #0a0b24;
-  --bg-soft: #131432;
-  --ink: #ffffff;
-  --ink-soft: rgba(255, 255, 255, 0.75);
-  --ink-mute: rgba(255, 255, 255, 0.5);
-  --ink-faint: rgba(255, 255, 255, 0.15);
-  --cyan: #06d6ff;
-  --cyan-soft: #67e8f9;
-  --violet: #a78bfa;
-  --violet-deep: #7c3aed;
-  --amber: #fbbf24;
-  --glass-bg: rgba(255, 255, 255, 0.04);
-  --glass-border: rgba(255, 255, 255, 0.1);
-}
+<!-- Estilos -->
+<link rel="stylesheet" href="styles.css">
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-html { 
-  scroll-behavior: smooth;
-  background: var(--bg-deep);
-  overflow-x: clip;
-}
-
-body {
-  background: transparent;
-  color: var(--ink);
-  font-family: 'Geist', sans-serif;
-  font-weight: 400;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Animated background gradient */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: 
-    radial-gradient(circle at 20% 20%, rgba(6, 214, 255, 0.08), transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.08), transparent 40%);
-  pointer-events: none;
-  z-index: 0;
-  animation: bgShift 20s ease-in-out infinite;
-}
-
-@keyframes bgShift {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(-30px, -30px); }
-}
-
-/* Noise overlay */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Grid pattern overlay */
-.grid-bg {
-  position: fixed;
-  inset: 0;
-  background-image: 
-    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-  background-size: 60px 60px;
-  pointer-events: none;
-  z-index: -1;
-}
-
-/* ============================================================
-   NAVIGATION
-   ============================================================ */
-
-nav {
-  position: fixed;
-  top: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
-  background: rgba(5, 6, 20, 0.7);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: 999px;
-  padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-  animation: navFloat 6s ease-in-out infinite;
-}
-
-@keyframes navFloat {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(-4px); }
-}
-
-nav .brand {
-  font-family: 'Instrument Serif', serif;
-  font-size: 18px;
-  padding: 0 12px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-nav .brand .dot {
-  width: 8px;
-  height: 8px;
-  background: var(--cyan);
-  border-radius: 50%;
-  box-shadow: 0 0 10px var(--cyan);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
-nav a {
-  color: var(--ink-soft);
-  text-decoration: none;
-  font-size: 12px;
-  font-family: 'Geist Mono', monospace;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 8px 14px;
-  border-radius: 999px;
-  transition: all 0.3s;
-}
-nav a:hover {
-  background: var(--glass-bg);
-  color: var(--cyan);
-}
-
-/* ============================================================
-   COMMON SECTION STYLES
-   ============================================================ */
-
-section {
-  position: relative;
-  z-index: 10;
-  min-height: 100vh;
-  width: 100%;
-  max-width: 1280px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 80px 6vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.glow {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  pointer-events: none;
-  z-index: 1;
-}
-
-.label {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.3em;
-  color: var(--ink-mute);
-  font-weight: 500;
-}
-
-.display {
-  font-family: 'Instrument Serif', serif;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-}
-
-/* Scroll animations - reveal */
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.reveal-1 { transition-delay: 0.1s; }
-.reveal-2 { transition-delay: 0.25s; }
-.reveal-3 { transition-delay: 0.4s; }
-.reveal-4 { transition-delay: 0.55s; }
-.reveal-5 { transition-delay: 0.7s; }
-.reveal-6 { transition-delay: 0.85s; }
-
-/* ============================================================
-   HERO SECTION
-   ============================================================ */
-
-.hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  padding-top: 120px;
-}
-
-.hero .glow.cyan {
-  width: 600px;
-  height: 600px;
-  top: -200px;
-  right: -200px;
-  background: radial-gradient(circle, rgba(6, 214, 255, 0.5), transparent 70%);
-  animation: float1 12s ease-in-out infinite;
-}
-
-.hero .glow.violet {
-  width: 500px;
-  height: 500px;
-  bottom: -150px;
-  left: -100px;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.4), transparent 70%);
-  animation: float2 15s ease-in-out infinite;
-}
-
-@keyframes float1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-50px, 50px) scale(1.1); }
-}
-@keyframes float2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(50px, -50px) scale(1.05); }
-}
-
-.hero-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: auto;
-  padding: 40px 0 28px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  position: relative;
-  z-index: 5;
-}
-
-.hero-brand {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  position: relative;
-}
-.hero-brand-mark {
-  height: 76px;
-  width: auto;
-  display: block;
-  filter: drop-shadow(0 0 24px rgba(34, 211, 238, 0.22));
-}
-.hero-brand-rule {
-  width: 1px;
-  height: 56px;
-  background: linear-gradient(to bottom, transparent, rgba(34, 211, 238, 0.45), transparent);
-}
-.hero-brand-text {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.hero-brand-name {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--ink);
-  font-weight: 600;
-}
-.hero-brand-tag {
-  font-family: 'Geist Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ink-mute);
-  line-height: 1.5;
-}
-.hero-brand-tag span {
-  color: var(--cyan-soft);
-}
-
-nav .brand {
-  display: flex;
-  align-items: center;
-  padding: 0 14px 0 4px;
-  gap: 0;
-}
-nav .brand .brand-logo {
-  height: 22px;
-  width: auto;
-  display: block;
-  filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.28));
-}
-
-.hero-meta {
-  text-align: right;
-  font-size: 10px;
-  color: var(--ink-mute);
-  font-family: 'Geist Mono', monospace;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  line-height: 1.8;
-}
-
-.hero-content {
-  margin-top: 8vh;
-  max-width: 1100px;
-  position: relative;
-  z-index: 5;
-}
-
-.hero-eyebrow {
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.4em;
-  color: var(--cyan);
-  margin-bottom: 40px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.hero-eyebrow::before {
-  content: '';
-  width: 40px;
-  height: 1px;
-  background: var(--cyan);
-  display: inline-block;
-}
-
-.hero-title {
-  display: inline-block;
-  margin-bottom: 50px;
-  position: relative;
-  height: clamp(70px, 13vw, 180px);
-}
-.hero-title-logo {
-  height: 100%;
-  width: auto;
-  display: block;
-  filter: drop-shadow(0 0 36px rgba(34, 211, 238, 0.32)) drop-shadow(0 0 12px rgba(124, 58, 237, 0.22));
-}
-.hero-title::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -14px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--cyan), var(--violet), transparent 80%);
-  transform: scaleX(0);
-  transform-origin: left;
-  opacity: 0;
-  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s, opacity 0.6s 0.6s;
-}
-.hero-title.visible::after {
-  opacity: 0.7;
-  transform: scaleX(1);
-}
-
-/* legacy em styles — unused after logo swap, kept for safety */
-.hero-title em {
-  font-style: italic;
-  font-weight: 400;
-  color: var(--cyan-soft);
-  display: inline-block;
-  position: relative;
-}
-.hero-title em::after {
-  content: '';
-  position: absolute;
-  bottom: 8%;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--cyan), var(--violet));
-  border-radius: 99px;
-  opacity: 0;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1s, opacity 0.6s 1s;
-}
-.hero-title.visible em::after {
-  opacity: 1;
-  transform: scaleX(1);
-}
-
-.hero-subtitle {
-  font-size: clamp(20px, 2.2vw, 28px);
-  color: var(--ink-soft);
-  line-height: 1.4;
-  max-width: 900px;
-  font-weight: 300;
-  margin-bottom: 60px;
-}
-.hero-subtitle strong {
-  color: var(--cyan-soft);
-  font-weight: 500;
-}
-
-.hero-stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  margin-top: auto;
-  padding-top: 40px;
-  border-top: 1px solid var(--ink-faint);
-}
-
-.hero-stat .number {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(36px, 4vw, 56px);
-  color: var(--cyan);
-  line-height: 1;
-  margin-bottom: 8px;
-  font-style: italic;
-}
-.hero-stat .stat-label {
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--ink-mute);
-}
-
-/* Scroll indicator */
-.scroll-hint {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  color: var(--ink-mute);
-  text-transform: uppercase;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  animation: bounce 2s ease-in-out infinite;
-}
-.scroll-hint::after {
-  content: '';
-  width: 1px;
-  height: 30px;
-  background: linear-gradient(180deg, var(--cyan), transparent);
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(10px); }
-}
-
-/* ============================================================
-   QUIÉNES SOMOS
-   ============================================================ */
-
-.who-section .glow.cyan {
-  width: 400px; height: 400px;
-  top: 20%; right: -100px;
-  background: radial-gradient(circle, rgba(6, 214, 255, 0.3), transparent 70%);
-}
-.who-section .glow.violet {
-  width: 350px; height: 350px;
-  bottom: 10%; left: -100px;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.3), transparent 70%);
-}
-
-.section-header {
-  display: flex;
-  align-items: baseline;
-  gap: 40px;
-  margin-bottom: 80px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--ink-faint);
-}
-
-.section-num {
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
-  color: var(--cyan);
-  letter-spacing: 0.2em;
-}
-
-.section-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(40px, 5vw, 64px);
-  letter-spacing: -0.02em;
-  color: var(--ink);
-}
-
-.section-spacer { flex: 1; }
-
-.section-meta {
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-  color: var(--ink-mute);
-}
-
-.who-statement {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(36px, 5vw, 72px);
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  margin-bottom: 60px;
-  max-width: 1200px;
-}
-.who-statement em {
-  font-style: italic;
-  color: var(--cyan-soft);
-}
-
-.who-paragraph {
-  font-size: 18px;
-  line-height: 1.7;
-  color: var(--ink-soft);
-  max-width: 900px;
-  margin-bottom: 80px;
-  font-weight: 300;
-}
-
-.pillars {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-}
-
-.pillar {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: 24px;
-  padding: 36px 32px;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  cursor: pointer;
-  transform-style: preserve-3d;
-}
-.pillar::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 60%;
-  height: 2px;
-  background: linear-gradient(90deg, var(--cyan), transparent);
-  transition: width 0.5s;
-}
-.pillar:hover {
-  transform: translateY(-8px) rotateX(2deg);
-  border-color: rgba(6, 214, 255, 0.3);
-  box-shadow: 
-    0 20px 60px rgba(6, 214, 255, 0.1),
-    0 0 40px rgba(6, 214, 255, 0.05);
-}
-.pillar:hover::before {
-  width: 100%;
-}
-
-.pillar-num {
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  color: var(--cyan);
-  letter-spacing: 0.25em;
-  margin-bottom: 16px;
-}
-.pillar-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: 28px;
-  line-height: 1.15;
-  color: var(--ink);
-  margin-bottom: 14px;
-  letter-spacing: -0.01em;
-}
-.pillar-desc {
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--ink-mute);
-  font-weight: 300;
-}
-
-/* ============================================================
-   CASO ZYPHOR (sección rica con info real del PDF)
-   ============================================================ */
-
-.zyphor-section {
-  padding-top: 120px;
-  padding-bottom: 120px;
-}
-
-.zyphor-section .glow.cyan {
-  width: 700px; height: 700px;
-  top: -200px; left: -200px;
-  background: radial-gradient(circle, rgba(6, 214, 255, 0.4), transparent 70%);
-  animation: float1 18s ease-in-out infinite;
-}
-.zyphor-section .glow.violet {
-  width: 500px; height: 500px;
-  bottom: 0; right: -100px;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.35), transparent 70%);
-  animation: float2 22s ease-in-out infinite;
-}
-
-.case-header {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 40px;
-  align-items: end;
-  margin-bottom: 32px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--ink-faint);
-}
-
-.case-num {
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
-  color: var(--cyan);
-  letter-spacing: 0.2em;
-}
-
-.case-name {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(60px, 8vw, 120px);
-  letter-spacing: -0.03em;
-  color: var(--ink);
-  line-height: 1;
-}
-.case-name .accent {
-  color: var(--cyan);
-}
-
-.case-logo-lockup {
-  display: flex;
-  align-items: center;
-  gap: 22px;
-  flex-wrap: wrap;
-  padding: 6px 0;
-}
-.case-logo-img {
-  height: clamp(48px, 6vw, 84px);
-  width: auto;
-  display: block;
-  filter:
-    drop-shadow(0 0 8px rgba(34, 211, 238, 0.65))
-    drop-shadow(0 0 28px rgba(34, 211, 238, 0.45))
-    drop-shadow(0 0 60px rgba(34, 211, 238, 0.25));
-  image-rendering: auto;
-  -webkit-backface-visibility: hidden;
-  animation: zyphorPulse 4s ease-in-out infinite;
-}
-@keyframes zyphorPulse {
-  0%, 100% {
-    filter:
-      drop-shadow(0 0 8px rgba(34, 211, 238, 0.65))
-      drop-shadow(0 0 28px rgba(34, 211, 238, 0.45))
-      drop-shadow(0 0 60px rgba(34, 211, 238, 0.25));
-  }
-  50% {
-    filter:
-      drop-shadow(0 0 12px rgba(34, 211, 238, 0.85))
-      drop-shadow(0 0 40px rgba(34, 211, 238, 0.55))
-      drop-shadow(0 0 80px rgba(34, 211, 238, 0.32));
-  }
-}
-.case-logo-by {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ink-mute);
-  padding-left: 22px;
-  border-left: 1px solid rgba(34, 211, 238, 0.35);
-  line-height: 1.6;
-  display: flex;
-  flex-direction: column;
-}
-.case-logo-by::before {
-  content: 'PRODUCTO';
-  display: block;
-  color: var(--cyan-soft);
-  font-size: 9px;
-  letter-spacing: 0.35em;
-  margin-bottom: 4px;
-}
-.case-logo-by strong {
-  color: var(--ink);
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.2em;
-}
-
-.case-status {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-  background: rgba(6, 214, 255, 0.1);
-  color: var(--cyan);
-  padding: 12px 20px;
-  border-radius: 99px;
-  border: 1px solid rgba(6, 214, 255, 0.3);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-}
-.case-status::before {
-  content: '';
-  width: 8px;
-  height: 8px;
-  background: var(--cyan);
-  border-radius: 50%;
-  box-shadow: 0 0 10px var(--cyan);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-.case-meta-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 48px;
-}
-
-.meta-cell {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: 16px;
-  padding: 20px 24px;
-  transition: all 0.4s;
-}
-.meta-cell:hover {
-  border-color: rgba(6, 214, 255, 0.3);
-  transform: translateY(-4px);
-}
-.meta-cell .meta-label {
-  font-family: 'Geist Mono', monospace;
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-  color: var(--ink-mute);
-  margin-bottom: 10px;
-}
-.meta-cell .meta-value {
-  font-family: 'Geist Mono', monospace;
-  font-size: 16px;
-  color: var(--ink);
-  font-weight: 500;
-}
-
-/* Mockup with 3D tilt */
-.case-mockup {
-  background: linear-gradient(135deg, rgba(6, 214, 255, 0.08), rgba(124, 58, 237, 0.08));
-  border: 1px solid var(--glass-border);
-  border-radius: 24px;
-  padding: 40px;
-  margin-bottom: 48px;
-  position: relative;
-  overflow: hidden;
-  perspective: 1500px;
-}
-.case-mockup-frame {
-  transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  transform: rotateX(0deg) rotateY(0deg);
-}
-.case-mockup-image {
-  width: 100%;
-  display: block;
-  border-radius: 12px;
-  box-shadow: 
-    0 60px 120px rgba(0,0,0,0.6),
-    0 30px 60px rgba(6, 214, 255, 0.1),
-    0 0 0 1px var(--ink-faint);
-}
-
-.case-body {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  margin-bottom: 80px;
-}
-
-.case-block-title {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-  color: var(--cyan);
-  margin-bottom: 16px;
-}
-
-.case-text {
-  font-size: 16px;
-  line-height: 1.7;
-  color: var(--ink-soft);
-  font-weight: 300;
-}
-.case-text strong {
-  color: var(--ink);
-  font-weight: 500;
-}
-
-/* Zyphor — Capabilities Grid (12 agents) */
-.zyphor-capabilities {
-  margin-top: 60px;
-}
-
-.subsection-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(32px, 4vw, 48px);
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  margin-bottom: 16px;
-}
-.subsection-title em {
-  font-style: italic;
-  color: var(--cyan-soft);
-}
-
-.subsection-desc {
-  font-size: 16px;
-  color: var(--ink-soft);
-  margin-bottom: 40px;
-  max-width: 800px;
-  line-height: 1.6;
-}
-
-.agents-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 80px;
-}
-
-.agent-tile {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: 16px;
-  padding: 20px;
-  position: relative;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.agent-tile:hover {
-  background: rgba(6, 214, 255, 0.06);
-  border-color: rgba(6, 214, 255, 0.3);
-  transform: translateY(-4px);
-}
-.agent-tile-icon {
-  width: 36px;
-  height: 36px;
-  background: rgba(6, 214, 255, 0.1);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 12px;
-  color: var(--cyan);
-  font-size: 16px;
-}
-.agent-tile-name {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--ink);
-  letter-spacing: -0.01em;
-  margin-bottom: 4px;
-}
-.agent-tile-desc {
-  font-size: 11px;
-  color: var(--ink-mute);
-  line-height: 1.5;
-}
-
-/* PRO agents */
-.pro-section {
-  background: linear-gradient(135deg, rgba(124, 58, 237, 0.06), rgba(6, 214, 255, 0.04));
-  border: 1px solid var(--glass-border);
-  border-radius: 32px;
-  padding: 48px;
-  margin-bottom: 60px;
-  position: relative;
-  overflow: hidden;
-}
-.pro-section::before {
-  content: 'PRO';
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  font-family: 'Instrument Serif', serif;
-  font-style: italic;
-  font-size: 80px;
-  color: rgba(167, 139, 250, 0.08);
-  letter-spacing: -0.02em;
-}
-
-.pro-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 32px;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.pro-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: 36px;
-  color: var(--ink);
-}
-.pro-title em {
-  font-style: italic;
-  color: var(--violet);
-}
-
-.pro-price {
-  font-family: 'Geist Mono', monospace;
-  font-size: 14px;
-  color: var(--violet);
-  background: rgba(167, 139, 250, 0.1);
-  padding: 8px 16px;
-  border-radius: 99px;
-  border: 1px solid rgba(167, 139, 250, 0.3);
-}
-
-.pro-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-
-.pro-tile {
-  background: rgba(0,0,0,0.3);
-  border: 1px solid var(--glass-border);
-  border-radius: 16px;
-  padding: 24px;
-}
-.pro-tile-name {
-  font-family: 'Instrument Serif', serif;
-  font-size: 22px;
-  color: var(--ink);
-  margin-bottom: 10px;
-  letter-spacing: -0.01em;
-}
-.pro-tile-desc {
-  font-size: 12px;
-  color: var(--ink-mute);
-  line-height: 1.6;
-}
-
-/* Pricing Tiers */
-.tiers-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-top: 32px;
-}
-
-.tier-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: 24px;
-  padding: 36px 32px;
-  position: relative;
-  transition: all 0.4s;
-}
-.tier-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-}
-.tier-card.featured {
-  background: linear-gradient(135deg, rgba(6, 214, 255, 0.08), rgba(124, 58, 237, 0.04));
-  border-color: rgba(6, 214, 255, 0.3);
-}
-.tier-card.featured::before {
-  content: 'Más elegido';
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  background: var(--cyan);
-  color: var(--bg-deep);
-  padding: 4px 14px;
-  border-radius: 99px;
-  font-weight: 700;
-}
-.tier-label {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--cyan);
-  margin-bottom: 8px;
-}
-.tier-price {
-  font-family: 'Instrument Serif', serif;
-  font-size: 48px;
-  color: var(--ink);
-  margin-bottom: 8px;
-  letter-spacing: -0.02em;
-}
-.tier-price-unit {
-  font-size: 14px;
-  color: var(--ink-mute);
-  font-family: 'Geist', sans-serif;
-}
-.tier-scope {
-  font-size: 14px;
-  color: var(--ink-soft);
-  line-height: 1.6;
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid var(--ink-faint);
-}
-
-/* Support scenarios */
-.support-section {
-  margin-top: 60px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: 32px;
-  padding: 48px;
-  position: relative;
-  overflow: hidden;
-}
-
-.support-header {
-  margin-bottom: 32px;
-}
-
-.support-formula {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-bottom: 32px;
-}
-
-.formula-cell {
-  background: rgba(0,0,0,0.2);
-  border: 1px solid var(--glass-border);
-  border-radius: 16px;
-  padding: 24px;
-  text-align: center;
-}
-.formula-cell .formula-label {
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--ink-mute);
-  margin-bottom: 12px;
-}
-.formula-cell .formula-value {
-  font-family: 'Instrument Serif', serif;
-  font-size: 36px;
-  color: var(--ink);
-  letter-spacing: -0.02em;
-}
-.formula-cell .formula-value em { color: var(--cyan); font-style: italic; }
-
-.scenarios {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-.scenario {
-  background: rgba(0,0,0,0.2);
-  border: 1px solid var(--glass-border);
-  border-radius: 16px;
-  padding: 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.scenario-name {
-  font-size: 13px;
-  color: var(--ink-soft);
-  line-height: 1.5;
-}
-.scenario-name strong {
-  display: block;
-  color: var(--ink);
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-.scenario-price {
-  font-family: 'Instrument Serif', serif;
-  font-style: italic;
-  font-size: 28px;
-  color: var(--cyan);
-  white-space: nowrap;
-}
-
-/* Stack tags */
-.stack-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 20px;
-}
-
-.tag {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  padding: 6px 12px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid var(--glass-border);
-  border-radius: 99px;
-  color: var(--ink-soft);
-  letter-spacing: 0.02em;
-  transition: all 0.3s;
-}
-.tag:hover {
-  background: rgba(6, 214, 255, 0.1);
-  border-color: rgba(6, 214, 255, 0.3);
-  color: var(--cyan);
-}
-
-/* ============================================================
-   OTROS CASOS
-   ============================================================ */
-
-.cases-section .glow.violet {
-  width: 500px; height: 500px;
-  top: 20%; right: -100px;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.3), transparent 70%);
-}
-.cases-section .glow.cyan {
-  width: 400px; height: 400px;
-  bottom: 20%; left: -100px;
-  background: radial-gradient(circle, rgba(6, 214, 255, 0.3), transparent 70%);
-}
-
-.twin-cases {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.twin-case {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: 32px;
-  padding: 48px;
-  position: relative;
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: stretch;
-  transition: all 0.5s;
-}
-.twin-case::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  height: 2px;
-  width: 30%;
-  background: linear-gradient(90deg, var(--cyan), transparent);
-  transition: width 0.6s;
-}
-.twin-case:hover::before {
-  width: 80%;
-}
-.twin-case:hover {
-  border-color: rgba(6, 214, 255, 0.25);
-}
-
-.twin-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.twin-num {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  color: var(--cyan);
-  letter-spacing: 0.25em;
-  margin-bottom: 16px;
-}
-
-.twin-name {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(40px, 5vw, 64px);
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  margin-bottom: 16px;
-}
-
-.twin-tagline {
-  font-size: 13px;
-  color: var(--cyan-soft);
-  font-family: 'Geist Mono', monospace;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  margin-bottom: 24px;
-}
-
-.twin-desc {
-  font-size: 15px;
-  line-height: 1.65;
-  color: var(--ink-soft);
-  font-weight: 300;
-  margin-bottom: auto;
-}
-.twin-desc strong { color: var(--ink); font-weight: 500; }
-
-.twin-stack {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 24px;
-}
-
-.twin-visual {
-  background: rgba(0,0,0,0.3);
-  border-radius: 20px;
-  overflow: hidden;
-  position: relative;
-  border: 1px solid var(--glass-border);
-  min-height: 320px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.twin-visual img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top left;
-  transition: transform 0.6s;
-}
-.twin-case:hover .twin-visual img {
-  transform: scale(1.03);
-}
-
-.anon-mockup {
-  width: 100%;
-  height: 100%;
-  background: 
-    radial-gradient(circle at 30% 30%, rgba(6, 214, 255, 0.15), transparent 50%),
-    radial-gradient(circle at 70% 70%, rgba(124, 58, 237, 0.15), transparent 50%),
-    rgba(0,0,0,0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-.anon-mockup::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-  background-size: 40px 40px;
-}
-.anon-content {
-  position: relative;
-  text-align: center;
-  z-index: 2;
-}
-.anon-content .anon-icon {
-  font-family: 'Instrument Serif', serif;
-  font-size: 80px;
-  margin-bottom: 24px;
-  color: var(--cyan);
-  font-style: italic;
-}
-.anon-content .anon-label {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.3em;
-  color: var(--ink-mute);
-  line-height: 1.8;
-}
-.anon-content .anon-label strong {
-  color: var(--cyan-soft);
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-}
-
-/* ============================================================
-   CIERRE / CONTACTO
-   ============================================================ */
-
-.close-section {
-  min-height: 100vh;
-  padding-top: 100px;
-  padding-bottom: 80px;
-  display: flex;
-  flex-direction: column;
-}
-
-.close-section .glow.cyan {
-  width: 800px; height: 800px;
-  top: 10%; right: -200px;
-  background: radial-gradient(circle, rgba(6, 214, 255, 0.4), transparent 70%);
-  animation: float1 16s ease-in-out infinite;
-}
-.close-section .glow.violet {
-  width: 600px; height: 600px;
-  bottom: -150px; left: -200px;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.4), transparent 70%);
-  animation: float2 20s ease-in-out infinite;
-}
-
-.close-hero {
-  margin-top: auto;
-  margin-bottom: 60px;
-  max-width: 1200px;
-}
-
-.close-pre {
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
-  color: var(--cyan);
-  text-transform: uppercase;
-  letter-spacing: 0.4em;
-  margin-bottom: 40px;
-}
-
-.close-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(70px, 11vw, 180px);
-  line-height: 0.9;
-  letter-spacing: -0.04em;
-  color: var(--ink);
-  margin-bottom: 40px;
-}
-.close-title em {
-  font-style: italic;
-  color: var(--cyan-soft);
-}
-
-.close-sub {
-  font-size: clamp(18px, 1.8vw, 24px);
-  line-height: 1.5;
-  color: var(--ink-soft);
-  max-width: 800px;
-  font-weight: 300;
-}
-
-.contact-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-bottom: 60px;
-}
-
-.contact-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: 24px;
-  padding: 32px;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.contact-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(6, 214, 255, 0.05), transparent);
-  transition: left 0.6s;
-}
-.contact-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(6, 214, 255, 0.3);
-  box-shadow: 0 20px 60px rgba(6, 214, 255, 0.1);
-}
-.contact-card:hover::before {
-  left: 100%;
-}
-
-.contact-label {
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  color: var(--ink-mute);
-  text-transform: uppercase;
-  letter-spacing: 0.3em;
-  margin-bottom: 12px;
-}
-
-.contact-value {
-  font-family: 'Geist Mono', monospace;
-  font-size: 18px;
-  color: var(--ink);
-  font-weight: 500;
-  word-break: break-word;
-}
-
-.close-footer {
-  padding-top: 24px;
-  border-top: 1px solid var(--ink-faint);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.close-footer-left {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  color: var(--ink-mute);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
-.close-footer-right {
-  font-family: 'Instrument Serif', serif;
-  font-style: italic;
-  font-size: 16px;
-  color: var(--ink-soft);
-}
-
-/* ============================================================
-   RESPONSIVE — tablet + mobile
-   ============================================================ */
-
-/* Tablet · 1024px and below */
-@media (max-width: 1024px) {
-  section { padding: 80px 5vw; }
-  .pillars { grid-template-columns: repeat(2, 1fr); }
-  .case-meta-row { grid-template-columns: repeat(2, 1fr); }
-  .case-body { grid-template-columns: 1fr; gap: 32px; }
-  .agents-grid { grid-template-columns: repeat(3, 1fr); }
-  .pro-grid { grid-template-columns: repeat(2, 1fr); }
-  .twin-case { grid-template-columns: 1fr; gap: 32px; padding: 32px; }
-  .hero-stats { grid-template-columns: repeat(2, 1fr); }
-  .tiers-grid { grid-template-columns: 1fr; gap: 16px; }
-  .support-formula { grid-template-columns: 1fr; gap: 16px; }
-  .scenarios { grid-template-columns: 1fr; }
-  .contact-grid { grid-template-columns: repeat(3, 1fr); }
-  .case-header { grid-template-columns: 1fr; gap: 16px; align-items: start; }
-  .pro-section { padding: 32px; }
-  .support-section { padding: 32px; }
-
-  /* Nav: compact pill centred, no animation fighting position */
-  nav {
-    top: 10px;
-    left: 50%;
-    right: auto;
-    transform: translateX(-50%);
-    animation: none !important;
-    width: calc(100vw - 20px);
-    max-width: 640px;
-    padding: 6px 8px;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    scrollbar-width: none;
-    justify-content: flex-start;
-    box-sizing: border-box;
-  }
-  nav::-webkit-scrollbar { display: none; }
-  nav .brand { font-size: 14px; padding: 4px 8px; flex-shrink: 0; }
-  nav .brand .brand-logo { height: 20px; }
-  nav a { padding: 4px 10px; font-size: 11px; flex-shrink: 0; white-space: nowrap; }
-  nav .brand .dot { animation: none !important; }
-
-  /* Kill expensive effects on touch devices */
-  *, *::before, *::after {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-  .pillar, .meta-cell, .agent-tile, .tier-card, .pro-tile, .scenario,
-  .formula-cell, .contact-card, .twin-case, .pro-section, .support-section,
-  .case-mockup, .logo-slot, .dna-mute {
-    background: rgba(10, 11, 36, 0.78) !important;
-  }
-  nav { background: rgba(5, 6, 20, 0.92) !important; }
-  .glow { animation: none !important; }
-}
-
-/* Phone · 720px and below */
-@media (max-width: 720px) {
-  html { font-size: 15px; }
-  section { padding: 64px 5vw; min-height: auto; }
-  .hero { padding-top: 96px; min-height: 100vh; }
-  .hero-top { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .hero-meta { text-align: left; }
-  .hero-title { font-size: clamp(64px, 24vw, 120px); line-height: 0.9; }
-  .hero-subtitle { font-size: 17px; margin-bottom: 40px; }
-  .hero-stats { grid-template-columns: 1fr 1fr; gap: 18px; }
-  .hero-stat .number { font-size: 36px; }
-  .hero-stat .stat-label { font-size: 9px; }
-
-  /* nav already styled in the 1024px breakpoint — here just trim further */
-  nav { max-width: 480px; }
-  nav .brand { font-size: 13px; }
-  nav a { padding: 4px 8px; font-size: 10px; }
-
-  /* section headers */
-  .section-header { flex-direction: column; align-items: flex-start; gap: 8px; }
-  .section-spacer { display: none; }
-  .section-title { font-size: clamp(34px, 9vw, 52px); }
-  .section-meta { font-size: 10px; }
-  .label { font-size: 10px; }
-
-  /* who */
-  .who-statement { font-size: clamp(30px, 8vw, 52px); }
-  .who-paragraph { font-size: 15px; line-height: 1.65; }
-  .pillars { grid-template-columns: 1fr; gap: 16px; }
-  .pillar { padding: 24px 20px; }
-
-  /* case */
-  .case-name { font-size: clamp(48px, 14vw, 88px); }
-  .case-meta-row { grid-template-columns: 1fr 1fr; gap: 12px; }
-  .meta-cell { padding: 16px; }
-  .case-text { font-size: 14.5px; line-height: 1.65; }
-  .subsection-title { font-size: clamp(28px, 7vw, 40px); }
-
-  /* mockup — disable 3D tilt on touch; mousemove rarely fires on mobile */
-  .case-mockup { padding: 20px; perspective: none; }
-  .case-mockup-frame { transform: none !important; transition: none; }
-  .case-mockup-image { width: 100%; height: auto; }
-
-  /* agents */
-  .agents-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .agent-tile { padding: 16px 14px; }
-  .agent-tile-icon { width: 32px; height: 32px; font-size: 14px; margin-bottom: 10px; }
-  .agent-tile-name { font-size: 12px; }
-  .agent-tile-desc { font-size: 10.5px; line-height: 1.45; }
-
-  /* pro */
-  .pro-section { padding: 24px 20px; }
-  .pro-header { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .pro-grid { grid-template-columns: 1fr; gap: 12px; }
-  .pro-tile { padding: 18px; }
-
-  /* tiers */
-  .tiers-grid { grid-template-columns: 1fr; gap: 14px; }
-  .tier-card { padding: 24px 20px; }
-
-  /* support */
-  .support-section { padding: 24px 20px; }
-  .support-formula { grid-template-columns: 1fr; gap: 12px; }
-  .formula-cell { padding: 18px; }
-  .scenarios { grid-template-columns: 1fr; gap: 12px; }
-  .scenario { padding: 18px; }
-
-  /* twin case */
-  .twin-case { padding: 24px 20px; gap: 24px; }
-  .twin-name { font-size: clamp(34px, 9vw, 52px); }
-  .twin-desc { font-size: 14.5px; }
-
-  /* close / contact */
-  .close-section { padding-top: 80px; }
-  .close-pre { font-size: 11px; }
-  .close-title { font-size: clamp(54px, 16vw, 96px); }
-  .close-sub { font-size: 16px; }
-  .contact-grid { grid-template-columns: 1fr; gap: 12px; }
-  .contact-card { padding: 20px 18px; }
-  .contact-label { font-size: 10px; }
-  .contact-value { font-size: 16px; }
-  .close-footer { flex-direction: column; gap: 8px; align-items: flex-start; }
-
-  /* Reveal pulse-pause: avoid the brand dot pulsing at 60fps */
-  /* (already disabled in 1024px breakpoint) */
-
-  /* DNA canvas — soften further on mobile so text wins */
-  #dna-canvas { opacity: 0.35; }
-
-  /* Make sure images never overflow their column on small viewports */
-  img { max-width: 100%; height: auto; }
-
-  /* Hero stat numbers can clip on very small phones */
-  .hero-stat .number { font-size: clamp(28px, 8vw, 40px) !important; }
-}
-
-/* Small phones · 420px and below — final compression pass */
-@media (max-width: 420px) {
-  section { padding: 56px 16px; }
-  .hero-title { font-size: clamp(56px, 22vw, 96px); }
-  .hero-stats { grid-template-columns: 1fr 1fr; gap: 14px; }
-  .agents-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-  nav .brand .dot { width: 5px; height: 5px; }
-}
-
-/* ============================================================
-   DNA 3D BACKGROUND
-   ============================================================ */
-
-#dna-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.5;
-}
-
-/* Reduce motion preference */
-@media (prefers-reduced-motion: reduce) {
-  #dna-canvas { opacity: 0.4; }
-}
-
-/* Mute button - discreet bottom right */
-.dna-mute {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 200;
-  width: 44px;
-  height: 44px;
-  background: rgba(5, 6, 20, 0.7);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: var(--ink-mute);
-  transition: all 0.3s;
-  font-size: 18px;
-}
-.dna-mute:hover {
-  color: var(--cyan);
-  border-color: rgba(6, 214, 255, 0.3);
-  transform: scale(1.05);
-}
-.dna-mute.muted { opacity: 0.5; }
-
-/* Floating "Fix" text from DNA */
-.fix-flash {
-  position: fixed;
-  z-index: 50;
-  pointer-events: none;
-  font-family: 'Instrument Serif', serif;
-  font-style: italic;
-  font-size: clamp(28px, 3vw, 48px);
-  color: #fbbf24;
-  font-weight: 400;
-  text-shadow: 0 0 20px rgba(251, 191, 36, 0.6);
-  opacity: 0;
-  animation: fixFlash 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  letter-spacing: -0.02em;
-  will-change: transform, opacity;
-}
-
-@keyframes fixFlash {
-  0% {
-    opacity: 0;
-    transform: scale(0.7) translateY(20px);
-  }
-  20% {
-    opacity: 1;
-    transform: scale(1.05) translateY(-5px);
-  }
-  35% {
-    transform: scale(1) translateY(0);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.2) translateY(-40px);
-  }
-}
-
-/* Boost glass blur on content sections so DNA stays subtle behind text */
-section .case-mockup,
-section .pillar,
-section .meta-cell,
-section .agent-tile,
-section .pro-section,
-section .pro-tile,
-section .tier-card,
-section .support-section,
-section .formula-cell,
-section .scenario,
-section .twin-case,
-section .contact-card,
-nav {
-  backdrop-filter: blur(30px) saturate(130%) !important;
-  -webkit-backdrop-filter: blur(30px) saturate(130%) !important;
-}
-
-/* Make body background a bit more saturated so DNA glows pop */
-body::before {
-  background: 
-    radial-gradient(circle at 20% 20%, rgba(6, 214, 255, 0.05), transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.05), transparent 40%) !important;
-}
-
-/* Section content sits ABOVE the DNA canvas */
-section {
-  position: relative;
-  z-index: 10;
-}
-nav { z-index: 100; }
-
-
-/* DARKER GLASS for content cards so DNA stays subtle */
-.meta-cell,
-.pillar,
-.agent-tile,
-.pro-tile,
-.tier-card,
-.formula-cell,
-.scenario,
-.contact-card {
-  background: rgba(10, 11, 36, 0.7) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(130%) !important;
-  backdrop-filter: blur(20px) saturate(130%) !important;
-}
-
-.case-mockup,
-.twin-case,
-.pro-section,
-.support-section {
-  background: rgba(10, 11, 36, 0.55) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(130%) !important;
-  backdrop-filter: blur(24px) saturate(130%) !important;
-}
-
-nav {
-  background: rgba(5, 6, 20, 0.85) !important;
-}
-
-/* Logo slot too */
-.logo-slot {
-  background: rgba(10, 11, 36, 0.6) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  backdrop-filter: blur(20px) !important;
-}
-
-</style>
+<!-- Importmap para three.js (debe ir antes de cualquier módulo) -->
 <script type="importmap">
 {
   "imports": {
@@ -1785,22 +29,28 @@ nav {
 </head>
 <body>
 
-<!-- DNA 3D BACKGROUND -->
+<!-- Canvas para fondo 3D -->
 <canvas id="dna-canvas"></canvas>
 
-
-
-
-<!-- BACKGROUND -->
+<!-- Cuadrícula de fondo -->
 <div class="grid-bg"></div>
 
-<!-- NAV -->
+<!-- ====================================================
+     NAV
+     ==================================================== -->
 <nav>
-  <div class="brand"><img class="brand-logo" src="assets/helixfix-logo-horizontal.png" alt="HelixFix"></div>
-  <a href="#who">Estudio</a>
-  <a href="#zyphor">Zyphor</a>
-  <a href="#cases">Casos</a>
-  <a href="#contact">Contacto</a>
+  <div class="brand">
+    <img class="brand-logo" src="assets/helixfix-logo-horizontal.png" alt="HelixFix">
+  </div>
+  <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links">
+    <a href="#who">Estudio</a>
+    <a href="#zyphor">Zyphor</a>
+    <a href="#cases">Casos</a>
+    <a href="#contact">Contacto</a>
+  </div>
 </nav>
 
 <!-- ====================================================
@@ -1809,13 +59,16 @@ nav {
 <section class="hero">
   <div class="glow cyan"></div>
   <div class="glow violet"></div>
-  
+
   <div class="hero-top">
     <div class="hero-brand reveal">
       <img class="hero-brand-mark" src="assets/helixfix-mark.png" alt="">
       <div class="hero-brand-rule"></div>
       <div class="hero-brand-text">
-        <div class="hero-brand-tag" style="font-size:10px">Consultoría Tecnológica<br><span>Santiago · Chile · MMXXVI</span></div>
+        <div class="hero-brand-tag">
+          Consultoría Tecnológica<br>
+          <span>Santiago · Chile · MMXXVI</span>
+        </div>
       </div>
     </div>
     <div class="hero-meta reveal reveal-1">
@@ -1823,15 +76,17 @@ nav {
       <div>2026 · Edición</div>
     </div>
   </div>
-  
+
   <div class="hero-content">
     <div class="hero-eyebrow reveal">Software · IA · Empresas</div>
-    <h1 class="hero-title reveal reveal-1"><img class="hero-title-logo" src="assets/helixfix-logo-hero.png" alt="HelixFix"></h1>
+    <h1 class="hero-title reveal reveal-1">
+      <img class="hero-title-logo" src="assets/helixfix-logo-hero.png" alt="HelixFix">
+    </h1>
     <p class="hero-subtitle reveal reveal-2">
-      Construyo <strong>software con inteligencia artificial</strong> para empresas que necesitan 
+      Construyo <strong>software con inteligencia artificial</strong> para empresas que necesitan
       automatizar lo que importa, sin sacrificar control ni privacidad.
     </p>
-    
+
     <div class="hero-stats">
       <div class="hero-stat reveal reveal-3">
         <div class="number">04</div>
@@ -1846,12 +101,12 @@ nav {
         <div class="stat-label">Agentes IA<br>en catálogo</div>
       </div>
       <div class="hero-stat reveal reveal-6">
-        <div class="number">100<span style="font-size:0.6em;color:var(--ink-mute)">%</span></div>
+        <div class="number">100<span class="number-unit">%</span></div>
         <div class="stat-label">Construido<br>en Chile</div>
       </div>
     </div>
   </div>
-  
+
   <div class="scroll-hint">Scroll</div>
 </section>
 
@@ -1861,60 +116,60 @@ nav {
 <section class="who-section" id="who">
   <div class="glow cyan"></div>
   <div class="glow violet"></div>
-  
+
   <div class="section-header reveal">
     <span class="section-num">01 / 04</span>
     <h2 class="section-title">Quiénes somos</h2>
     <div class="section-spacer"></div>
     <span class="section-meta">Helix · Consultoría</span>
   </div>
-  
+
   <h3 class="who-statement reveal reveal-1">
     No hacemos landing pages bonitas.<br>
     Construimos <em>software que opera</em>, automatiza y escala negocios reales.
   </h3>
-  
+
   <p class="who-paragraph reveal reveal-2">
-    Helix es una <strong>consultora tecnológica</strong> chilena especializada en construir productos digitales con 
-    inteligencia artificial. Trabajamos con empresas que ya tienen procesos definidos 
-    y quieren llevarlos al siguiente nivel: orquestar agentes IA, automatizar tareas 
-    operativas, integrar datos dispersos, y resolver problemas técnicos que las 
+    Helix es una <strong>consultora tecnológica</strong> chilena especializada en construir productos digitales con
+    inteligencia artificial. Trabajamos con empresas que ya tienen procesos definidos
+    y quieren llevarlos al siguiente nivel: orquestar agentes IA, automatizar tareas
+    operativas, integrar datos dispersos, y resolver problemas técnicos que las
     plataformas genéricas no resuelven.
   </p>
-  
+
   <div class="pillars">
     <div class="pillar reveal reveal-3">
       <div class="pillar-num">/ 01</div>
       <h4 class="pillar-title">Producto,<br>no demo</h4>
       <p class="pillar-desc">
-        Construimos software que opera en producción con clientes reales, 
+        Construimos software que opera en producción con clientes reales,
         no prototipos para una presentación.
       </p>
     </div>
-    
+
     <div class="pillar reveal reveal-4">
       <div class="pillar-num">/ 02</div>
       <h4 class="pillar-title">IA con criterio</h4>
       <p class="pillar-desc">
-        Usamos IA donde aporta valor: orquestadores, agentes, análisis. 
+        Usamos IA donde aporta valor: orquestadores, agentes, análisis.
         No la pegamos donde no corresponde.
       </p>
     </div>
-    
+
     <div class="pillar reveal reveal-5">
       <div class="pillar-num">/ 03</div>
       <h4 class="pillar-title">Privacidad<br>como base</h4>
       <p class="pillar-desc">
-        Sabemos trabajar con datos sensibles. Diseñamos arquitecturas donde 
+        Sabemos trabajar con datos sensibles. Diseñamos arquitecturas donde
         la información no sale del cliente.
       </p>
     </div>
-    
+
     <div class="pillar reveal reveal-6">
       <div class="pillar-num">/ 04</div>
       <h4 class="pillar-title">Documentamos todo</h4>
       <p class="pillar-desc">
-        Cada proyecto tiene alcance, hitos y cláusulas claras. Sin sorpresas 
+        Cada proyecto tiene alcance, hitos y cláusulas claras. Sin sorpresas
         ni interpretaciones a mitad del camino.
       </p>
     </div>
@@ -1922,12 +177,12 @@ nav {
 </section>
 
 <!-- ====================================================
-     CASO ZYPHOR — Ricamente expandido
+     CASO ZYPHOR
      ==================================================== -->
 <section class="zyphor-section" id="zyphor">
   <div class="glow cyan"></div>
   <div class="glow violet"></div>
-  
+
   <div class="case-header reveal">
     <span class="case-num">02 / 04 · Caso</span>
     <div class="case-name case-logo-lockup">
@@ -1936,7 +191,7 @@ nav {
     </div>
     <span class="case-status">En producción · Chile + USA</span>
   </div>
-  
+
   <div class="case-meta-row">
     <div class="meta-cell reveal reveal-1">
       <div class="meta-label">Sector</div>
@@ -1955,32 +210,32 @@ nav {
       <div class="meta-value">Licencia + MRR</div>
     </div>
   </div>
-  
+
   <div class="case-mockup reveal">
     <div class="case-mockup-frame">
-      <img src="assets/case-mockup-1.png" decoding="async" alt="Zyphor Dashboard" class="case-mockup-image">
+      <img src="assets/case-mockup-1.png" decoding="async" loading="lazy" alt="Zyphor Dashboard" class="case-mockup-image">
     </div>
   </div>
-  
+
   <div class="case-body">
     <div class="reveal">
       <div class="case-block-title">Desafío</div>
       <p class="case-text">
-        El cliente requería una plataforma SaaS multi-tenant capaz de orquestar 
-        <strong>múltiples agentes IA</strong> sobre una capa común, con autenticación, 
-        aislamiento de datos por cliente, y un panel para gestionar la operación 
-        completa. El objetivo final: <strong>licenciar la plataforma a otras empresas</strong> 
+        El cliente requería una plataforma SaaS multi-tenant capaz de orquestar
+        <strong>múltiples agentes IA</strong> sobre una capa común, con autenticación,
+        aislamiento de datos por cliente, y un panel para gestionar la operación
+        completa. El objetivo final: <strong>licenciar la plataforma a otras empresas</strong>
         como producto comercial con un catálogo de agentes verticales.
       </p>
     </div>
-    
+
     <div class="reveal reveal-1">
       <div class="case-block-title">Solución entregada</div>
       <p class="case-text">
-        Plataforma SaaS completa con <strong>orquestador central</strong>, agentes 
-        modulares de Ventas y Analítica, onboarding guiado, sistema de roles, 
-        dashboard de KPIs y edge functions para procesamiento IA. El producto 
-        quedó <strong>vendiendo a empresas en Chile y Estados Unidos</strong> en sus 
+        Plataforma SaaS completa con <strong>orquestador central</strong>, agentes
+        modulares de Ventas y Analítica, onboarding guiado, sistema de roles,
+        dashboard de KPIs y edge functions para procesamiento IA. El producto
+        quedó <strong>vendiendo a empresas en Chile y Estados Unidos</strong> en sus
         primeras semanas, con MRR activo.
       </p>
       <div class="stack-tags">
@@ -1995,17 +250,17 @@ nav {
       </div>
     </div>
   </div>
-  
-  <!-- CAPABILITIES — 12 AGENTES ESTÁNDAR -->
+
+  <!-- CAPABILITIES -->
   <div class="zyphor-capabilities">
     <h3 class="subsection-title reveal">
       Catálogo de <em>12 agentes</em> verticales
     </h3>
     <p class="subsection-desc reveal reveal-1">
-      Agentes especializados listos para personalizar al negocio del cliente. 
+      Agentes especializados listos para personalizar al negocio del cliente.
       Todos viven dentro del Orchestrator y comparten contexto del workspace.
     </p>
-    
+
     <div class="agents-grid">
       <div class="agent-tile reveal reveal-1">
         <div class="agent-tile-icon"><i class="fa-solid fa-chart-line"></i></div>
@@ -2068,17 +323,17 @@ nav {
         <div class="agent-tile-desc">Propuestas con catálogo, descuentos, validez automática.</div>
       </div>
     </div>
-    
+
     <!-- AGENTES PRO -->
     <div class="pro-section reveal">
       <div class="pro-header">
         <div>
           <h3 class="pro-title">Agentes <em>PRO</em></h3>
-          <p style="color: var(--ink-mute); font-size: 14px; margin-top: 4px;">Capacidades técnicas avanzadas · Infraestructura extra · Integraciones críticas</p>
+          <p class="pro-subtitle">Capacidades técnicas avanzadas · Infraestructura extra · Integraciones críticas</p>
         </div>
         <div class="pro-price">$1.500.000 CLP · one-shot</div>
       </div>
-      
+
       <div class="pro-grid">
         <div class="pro-tile reveal reveal-1">
           <div class="pro-tile-name">Inventario / SCM</div>
@@ -2106,16 +361,16 @@ nav {
         </div>
       </div>
     </div>
-    
-    <!-- PRICING TIERS ESTÁNDAR -->
+
+    <!-- PRICING TIERS -->
     <h3 class="subsection-title reveal">
       Niveles de <em>alcance</em> por agente
     </h3>
     <p class="subsection-desc reveal reveal-1">
-      Cada agente del catálogo se cotiza según alcance: cantidad de canales, integraciones, 
+      Cada agente del catálogo se cotiza según alcance: cantidad de canales, integraciones,
       lógica de negocio y profundidad de QA.
     </p>
-    
+
     <div class="tiers-grid">
       <div class="tier-card reveal reveal-1">
         <div class="tier-label">Básico</div>
@@ -2139,14 +394,14 @@ nav {
         </p>
       </div>
     </div>
-    
-    <!-- SOPORTE ESCALABLE -->
+
+    <!-- SOPORTE -->
     <div class="support-section reveal">
       <div class="support-header">
-        <h3 class="subsection-title" style="margin-bottom: 8px;">Soporte que <em>escala</em> con tu operación</h3>
-        <p style="color: var(--ink-mute); font-size: 15px;">El soporte mensual se recalcula automáticamente al sumar agentes.</p>
+        <h3 class="subsection-title support-title">Soporte que <em>escala</em> con tu operación</h3>
+        <p class="support-subtitle">El soporte mensual se recalcula automáticamente al sumar agentes.</p>
       </div>
-      
+
       <div class="support-formula">
         <div class="formula-cell">
           <div class="formula-label">Plan base</div>
@@ -2161,7 +416,7 @@ nav {
           <div class="formula-value">+<em>$100K</em></div>
         </div>
       </div>
-      
+
       <div class="scenarios">
         <div class="scenario reveal reveal-1">
           <div class="scenario-name">
@@ -2193,9 +448,9 @@ nav {
         </div>
       </div>
     </div>
-    
+
   </div>
-  
+
 </section>
 
 <!-- ====================================================
@@ -2204,16 +459,16 @@ nav {
 <section class="cases-section" id="cases">
   <div class="glow cyan"></div>
   <div class="glow violet"></div>
-  
+
   <div class="section-header reveal">
     <span class="section-num">03 / 04</span>
     <h2 class="section-title">Otros casos</h2>
     <div class="section-spacer"></div>
     <span class="section-meta">Producto propio + MVP cliente</span>
   </div>
-  
+
   <div class="twin-cases">
-    
+
     <!-- PYMEMANAGER -->
     <article class="twin-case reveal">
       <div class="twin-info">
@@ -2221,10 +476,10 @@ nav {
         <h3 class="twin-name">PymeManager</h3>
         <div class="twin-tagline">Desktop con IA · Para PYMEs chilenas</div>
         <p class="twin-desc">
-          Aplicación de escritorio para PYMES chilenas que centraliza inventario, 
-          ventas, gastos y reportes en una sola herramienta. Incluye un 
-          <strong>asesor IA conversacional</strong> que responde dudas de negocio 
-          sobre los datos reales del usuario. Funciona <strong>100% offline</strong> 
+          Aplicación de escritorio para PYMES chilenas que centraliza inventario,
+          ventas, gastos y reportes en una sola herramienta. Incluye un
+          <strong>asesor IA conversacional</strong> que responde dudas de negocio
+          sobre los datos reales del usuario. Funciona <strong>100% offline</strong>
           y los datos permanecen en el computador del cliente — privacidad total.
         </p>
         <div class="twin-stack">
@@ -2238,21 +493,21 @@ nav {
         </div>
       </div>
       <div class="twin-visual">
-        <img src="assets/case-mockup-2.png" decoding="async" alt="PymeManager">
+        <img src="assets/case-mockup-2.png" decoding="async" loading="lazy" alt="PymeManager">
       </div>
     </article>
-    
-    <!-- PROYECTO EDTECH (anónimo) -->
+
+    <!-- EDTECH -->
     <article class="twin-case reveal reveal-1">
       <div class="twin-info">
         <div class="twin-num">/ 04 · MVP cliente</div>
         <h3 class="twin-name">Proyecto EdTech</h3>
         <div class="twin-tagline">Plataforma educativa multi-rol</div>
         <p class="twin-desc">
-          MVP de plataforma educativa con <strong>3 roles diferenciados</strong> 
-          (administrador, profesor, estudiante), construida sobre stack WordPress 
-          con personalización avanzada de CSS y resolución de conflictos entre 
-          theme y plugin de canvas. Entregado en fase MVP, listo para expansión 
+          MVP de plataforma educativa con <strong>3 roles diferenciados</strong>
+          (administrador, profesor, estudiante), construida sobre stack WordPress
+          con personalización avanzada de CSS y resolución de conflictos entre
+          theme y plugin de canvas. Entregado en fase MVP, listo para expansión
           a producto final.
         </p>
         <div class="twin-stack">
@@ -2276,7 +531,7 @@ nav {
         </div>
       </div>
     </article>
-    
+
   </div>
 </section>
 
@@ -2286,14 +541,14 @@ nav {
 <section class="close-section" id="contact">
   <div class="glow cyan"></div>
   <div class="glow violet"></div>
-  
+
   <div class="section-header reveal">
     <span class="section-num">04 / 04</span>
     <h2 class="section-title">Conversemos</h2>
     <div class="section-spacer"></div>
     <span class="section-meta">Contacto · Chile</span>
   </div>
-  
+
   <div class="close-hero">
     <div class="close-pre reveal">— ¿Tienes un proceso que automatizar? —</div>
     <h2 class="close-title reveal reveal-1">
@@ -2301,365 +556,38 @@ nav {
       que <em>funcione</em>.
     </h2>
     <p class="close-sub reveal reveal-2">
-      Si tienes un proceso operativo que se puede automatizar, un producto 
-      que necesita IA con criterio, o una idea que aún no encuentra forma técnica, 
+      Si tienes un proceso operativo que se puede automatizar, un producto
+      que necesita IA con criterio, o una idea que aún no encuentra forma técnica,
       conversemos. Cotizamos según alcance.
     </p>
   </div>
-  
+
   <div class="contact-grid">
     <div class="contact-card reveal reveal-1">
       <div class="contact-label">WhatsApp</div>
       <div class="contact-value">+56 9 4514 0075</div>
     </div>
-    
+
     <div class="contact-card reveal reveal-2">
       <div class="contact-label">Email</div>
       <div class="contact-value">hola@helix.cl</div>
     </div>
-    
+
     <div class="contact-card reveal reveal-3">
       <div class="contact-label">Web</div>
       <div class="contact-value">helix.cl</div>
     </div>
   </div>
-  
+
   <div class="close-footer">
     <div class="close-footer-left">Helix · Portfolio 2026 · Confidencial</div>
     <div class="close-footer-right">— Hecho en Santiago, Chile.</div>
   </div>
 </section>
 
-<script>
-// Scroll reveal animation
-const observerOptions = {
-  threshold: 0.1,
-  rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, observerOptions);
-
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// Smooth scroll for nav links
-document.querySelectorAll('nav a').forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    const target = document.querySelector(link.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
-});
-
-// 3D tilt effect on mockup
-const mockup = document.querySelector('.case-mockup');
-if (mockup) {
-  const frame = mockup.querySelector('.case-mockup-frame');
-  mockup.addEventListener('mousemove', (e) => {
-    const rect = mockup.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
-    const rotateY = (x - 0.5) * 10;
-    const rotateX = (0.5 - y) * 10;
-    frame.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-  });
-  mockup.addEventListener('mouseleave', () => {
-    frame.style.transform = 'rotateX(0deg) rotateY(0deg)';
-  });
-}
-</script>
-
-
-<!-- DNA 3D — replaced by Claude's helix -->
-<script type="module">
-/* Skip the heavy WebGL helix entirely on mobile/tablet — replace with a
-   lightweight CSS-only DNA backdrop. MeshPhysicalMaterial with transmission +
-   bloom postprocessing destroys mobile GPUs. */
-const isMobileViewport = window.matchMedia('(max-width: 1024px), (hover: none) and (pointer: coarse)').matches;
-if (isMobileViewport) {
-  /* Static fallback: show the pre-rotated DNA strand as a fixed-position image
-     with very low opacity so the content is fully readable */
-  const fallback = document.createElement('div');
-  fallback.id = 'dna-fallback';
-  fallback.setAttribute('aria-hidden', 'true');
-  fallback.style.cssText = `
-    position: fixed; inset: 0; z-index: 1; pointer-events: none;
-    background:
-      radial-gradient(ellipse at 50% 30%, rgba(6, 214, 255, 0.10), transparent 60%),
-      radial-gradient(ellipse at 50% 70%, rgba(124, 58, 237, 0.08), transparent 60%),
-      url('assets/dna-strand.png') center / contain no-repeat;
-    opacity: 0.16;
-    filter: blur(0.5px);
-  `;
-  document.body.appendChild(fallback);
-  const cv = document.getElementById('dna-canvas');
-  if (cv) cv.style.display = 'none';
-} else {
-  /* Desktop: full WebGL helix */
-  import('https://unpkg.com/three@0.160.0/build/three.module.js').then(THREE_NS => {
-    return Promise.all([
-      THREE_NS,
-      import('https://unpkg.com/three@0.160.0/examples/jsm/postprocessing/EffectComposer.js'),
-      import('https://unpkg.com/three@0.160.0/examples/jsm/postprocessing/RenderPass.js'),
-      import('https://unpkg.com/three@0.160.0/examples/jsm/postprocessing/UnrealBloomPass.js'),
-      import('https://unpkg.com/three@0.160.0/examples/jsm/postprocessing/OutputPass.js'),
-    ]);
-  }).then(([THREE, ECMod, RPMod, UBPMod, OPMod]) => {
-    const { EffectComposer } = ECMod, { RenderPass } = RPMod, { UnrealBloomPass } = UBPMod, { OutputPass } = OPMod;
-
-const canvas = document.getElementById('dna-canvas');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-const isMobile = window.matchMedia('(max-width: 720px)').matches;
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.25 : 2));
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setClearColor(0x000000, 0);
-renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.15;
-
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(42, window.innerWidth/window.innerHeight, 0.1, 100);
-camera.position.set(0, 0, 8.2);
-
-/* DNA — true 3D double helix */
-const DNA = new THREE.Group();
-
-const HELIX_RADIUS  = 1.85;
-const TURNS         = 8;
-const PITCH         = 4.6;
-const HELIX_LEN     = TURNS * PITCH;
-const TUBE_RADIUS   = 0.11;
-const TUBE_SEGS     = 480;
-const TUBE_RADIAL   = 14;
-const RUNG_RADIUS   = 0.07;
-const RUNGS_PER_TURN = 10;
-
-class HelixCurve extends THREE.Curve {
-  constructor(phase) { super(); this.phase = phase; }
-  getPoint(t, target = new THREE.Vector3()) {
-    const angle = t * TURNS * Math.PI * 2 + this.phase;
-    const y = (t - 0.5) * HELIX_LEN;
-    return target.set(
-      HELIX_RADIUS * Math.cos(angle),
-      y,
-      HELIX_RADIUS * Math.sin(angle)
-    );
-  }
-}
-
-const strandMat = new THREE.MeshPhysicalMaterial({
-  color: new THREE.Color(0x9be4ff),
-  emissive: new THREE.Color(0x18a0d8),
-  emissiveIntensity: 0.32,
-  metalness: 0,
-  roughness: 0.22,
-  clearcoat: 1.0,
-  clearcoatRoughness: 0.14,
-  transmission: 0.5,
-  thickness: 0.9,
-  ior: 1.42,
-  attenuationColor: new THREE.Color(0x4ed0ff),
-  attenuationDistance: 2.5,
-  transparent: true,
-  opacity: 0.95,
-  side: THREE.DoubleSide,
-});
-
-const rungMat = new THREE.MeshPhysicalMaterial({
-  color: new THREE.Color(0xbfeeff),
-  emissive: new THREE.Color(0x2fb8e8),
-  emissiveIntensity: 0.45,
-  metalness: 0,
-  roughness: 0.2,
-  clearcoat: 1,
-  clearcoatRoughness: 0.12,
-  transmission: 0.35,
-  thickness: 0.5,
-  ior: 1.42,
-  transparent: true,
-  opacity: 0.95,
-});
-
-const strand1 = new THREE.Mesh(
-  new THREE.TubeGeometry(new HelixCurve(0), TUBE_SEGS, TUBE_RADIUS, TUBE_RADIAL, false),
-  strandMat
-);
-const strand2 = new THREE.Mesh(
-  new THREE.TubeGeometry(new HelixCurve(Math.PI), TUBE_SEGS, TUBE_RADIUS, TUBE_RADIAL, false),
-  strandMat
-);
-DNA.add(strand1, strand2);
-
-const totalRungs = TURNS * RUNGS_PER_TURN;
-const RUNG_BODY_LEN = 2 * HELIX_RADIUS - 2 * RUNG_RADIUS;
-const rungGeo = new THREE.CapsuleGeometry(RUNG_RADIUS, RUNG_BODY_LEN, 8, 18);
-const _up = new THREE.Vector3(0, 1, 0);
-for (let i = 0; i <= totalRungs; i++) {
-  const t = i / totalRungs;
-  const angle = t * TURNS * Math.PI * 2;
-  const y = (t - 0.5) * HELIX_LEN;
-  const p1 = new THREE.Vector3(HELIX_RADIUS * Math.cos(angle), y, HELIX_RADIUS * Math.sin(angle));
-  const p2 = new THREE.Vector3(HELIX_RADIUS * Math.cos(angle + Math.PI), y, HELIX_RADIUS * Math.sin(angle + Math.PI));
-  const mid = p1.clone().add(p2).multiplyScalar(0.5);
-  const dir = p2.clone().sub(p1).normalize();
-  const rung = new THREE.Mesh(rungGeo, rungMat);
-  rung.position.copy(mid);
-  rung.quaternion.setFromUnitVectors(_up, dir);
-  DNA.add(rung);
-}
-
-const capGeo = new THREE.SphereGeometry(TUBE_RADIUS * 1.15, 16, 12);
-[strand1, strand2].forEach(s => {
-  const curve = s.geometry.parameters.path;
-  [0, 1].forEach(end => {
-    const p = curve.getPoint(end);
-    const cap = new THREE.Mesh(capGeo, strandMat);
-    cap.position.copy(p);
-    DNA.add(cap);
-  });
-});
-
-DNA.rotation.z = 0;
-DNA.position.set(0, 0, 0);
-scene.add(DNA);
-
-/* Lights */
-scene.add(new THREE.AmbientLight(0x1a2d4a, 0.55));
-const keyLight = new THREE.PointLight(0x6fdcff, 14, 26, 1.7);
-keyLight.position.set(3.8, 5.0, 4.4);
-scene.add(keyLight);
-const fillLight = new THREE.PointLight(0x1d6cff, 7, 22, 1.8);
-fillLight.position.set(-4.5, -2.5, 3.0);
-scene.add(fillLight);
-const rimLight = new THREE.DirectionalLight(0x8ce6ff, 1.4);
-rimLight.position.set(-2, 1, -3);
-scene.add(rimLight);
-
-/* Particles */
-function makeParticleSprite() {
-  const c = document.createElement('canvas');
-  c.width = c.height = 64;
-  const g = c.getContext('2d');
-  const rad = g.createRadialGradient(32, 32, 0, 32, 32, 32);
-  rad.addColorStop(0.00, 'rgba(180,230,255,1)');
-  rad.addColorStop(0.35, 'rgba(110,200,255,.55)');
-  rad.addColorStop(1.00, 'rgba(0,0,0,0)');
-  g.fillStyle = rad;
-  g.fillRect(0, 0, 64, 64);
-  const t = new THREE.CanvasTexture(c);
-  t.colorSpace = THREE.SRGBColorSpace;
-  return t;
-}
-const partTex = makeParticleSprite();
-
-const PCOUNT = isMobile ? 120 : 260;
-const ppos = new Float32Array(PCOUNT * 3);
-for (let i = 0; i < PCOUNT; i++) {
-  ppos[i*3+0] = (Math.random() - 0.5) * 22;
-  ppos[i*3+1] = (Math.random() - 0.5) * 18;
-  ppos[i*3+2] = (Math.random() - 0.5) * 14 - 2;
-}
-const partGeo = new THREE.BufferGeometry();
-partGeo.setAttribute('position', new THREE.BufferAttribute(ppos, 3));
-const partMat = new THREE.PointsMaterial({
-  size: 0.085, map: partTex, transparent: true,
-  blending: THREE.AdditiveBlending, depthWrite: false,
-  sizeAttenuation: true, color: 0xbfeaff,
-});
-const particles = new THREE.Points(partGeo, partMat);
-scene.add(particles);
-
-const FCOUNT = isMobile ? 30 : 70;
-const fpos = new Float32Array(FCOUNT * 3);
-for (let i = 0; i < FCOUNT; i++) {
-  fpos[i*3+0] = (Math.random() - 0.5) * 28;
-  fpos[i*3+1] = (Math.random() - 0.5) * 22;
-  fpos[i*3+2] = (Math.random() - 0.5) * 8 - 7;
-}
-const farGeo = new THREE.BufferGeometry();
-farGeo.setAttribute('position', new THREE.BufferAttribute(fpos, 3));
-const farMat = new THREE.PointsMaterial({
-  size: 0.22, map: partTex, transparent: true,
-  blending: THREE.AdditiveBlending, depthWrite: false,
-  sizeAttenuation: true, color: 0x6fbfff, opacity: 0.55,
-});
-const farPart = new THREE.Points(farGeo, farMat);
-scene.add(farPart);
-
-/* Post: bloom */
-const composer = new EffectComposer(renderer);
-composer.addPass(new RenderPass(scene, camera));
-const bloom = new UnrealBloomPass(
-  new THREE.Vector2(window.innerWidth, window.innerHeight),
-  isMobile ? 0.42 : 0.55, 0.65, 0.18
-);
-composer.addPass(bloom);
-composer.addPass(new OutputPass());
-
-/* Scroll → rotateY */
-const state = { rotY: 0, tRotY: 0, scroll: 0 };
-function onScroll() {
-  const y = window.scrollY || window.pageYOffset;
-  const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-  const p = Math.min(1, Math.max(0, y / max));
-  state.scroll = p;
-  state.tRotY = p * Math.PI * 2;
-}
-window.addEventListener('scroll', onScroll, { passive: true });
-
-/* Pointer parallax */
-const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
-window.addEventListener('pointermove', e => {
-  pointer.tx = (e.clientX / window.innerWidth  - 0.5) * 0.25;
-  pointer.ty = (e.clientY / window.innerHeight - 0.5) * 0.18;
-});
-
-function onResize() {
-  const w = window.innerWidth, h = window.innerHeight;
-  camera.aspect = w / h;
-  camera.updateProjectionMatrix();
-  renderer.setSize(w, h);
-  composer.setSize(w, h);
-  bloom.setSize(w, h);
-}
-window.addEventListener('resize', onResize);
-
-const clock = new THREE.Clock();
-function tick() {
-  const t = clock.elapsedTime;
-  state.rotY += (state.tRotY - state.rotY) * 0.085;
-
-  DNA.rotation.y = state.rotY + t * 0.05;
-  DNA.position.y = Math.sin(t * 0.4) * 0.06;
-
-  pointer.x += (pointer.tx - pointer.x) * 0.06;
-  pointer.y += (pointer.ty - pointer.y) * 0.06;
-  camera.position.x = pointer.x;
-  camera.position.y = -pointer.y;
-  camera.lookAt(0, 0, 0);
-
-  particles.rotation.y = t * 0.025;
-  particles.rotation.x = Math.sin(t * 0.18) * 0.03;
-  farPart.rotation.y   = -t * 0.012;
-
-  composer.render();
-  requestAnimationFrame(tick);
-}
-onResize();
-onScroll();
-tick();
-
-window.__dna = { DNA, camera, state, scene };
-  });
-}
-</script>
+<!-- Scripts -->
+<script src="scripts.js" defer></script>
+<script type="module" src="dna.js"></script>
 
 </body>
 </html>
