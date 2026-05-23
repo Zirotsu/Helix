@@ -43,7 +43,6 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
 }
 
 /* ============================================================
@@ -200,6 +199,8 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* Contener glows que se desbordan vertical/horizontalmente */
+  overflow: clip;
 }
 
 .glow {
