@@ -25,25 +25,17 @@
   /* Padding horizontal responsivo unificado */
   --section-padding-x: clamp(20px, 5vw, 80px);
   --section-padding-y: clamp(64px, 9vw, 120px);
-  --content-max-width: 1280px;
-  --glass-max-width: 1180px;
-  --qa-page-edge-safe: max(16px, env(safe-area-inset-left));
 }
-
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html {
   scroll-behavior: smooth;
   background: var(--bg-deep);
-  width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
-  width: 100%;
-  min-width: 0;
-  overflow-x: hidden;
   background: transparent;
   color: var(--ink);
   font-family: 'Geist', sans-serif;
@@ -200,29 +192,15 @@ section {
   z-index: 10;
   min-height: 100vh;
   width: 100%;
-  max-width: none;
-  margin-left: 0;
-  margin-right: 0;
-  /* QA FINAL: el padding anterior sumaba centrado + padding y achicaba el contenido a ~1120px en desktop.
-     La sección debe ocupar todo el viewport; el ancho máximo se aplica solo a sus hijos. */
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
   padding: var(--section-padding-y) var(--section-padding-x);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  overflow: visible;
-}
-
-/*
-   Contenedor lógico sin tocar el HTML:
-   la sección ahora ocupa todo el viewport para que el fondo/glow no se corte,
-   pero el contenido conserva un ancho editorial máximo.
-*/
-section > :not(.glow):not(.scroll-hint) {
-  width: 100%;
-  max-width: var(--content-max-width);
-  margin-left: auto;
-  margin-right: auto;
-  align-self: center;
+  /* Contener glows que se desbordan vertical/horizontalmente */
+  overflow: clip;
 }
 
 .glow {
@@ -1539,80 +1517,15 @@ section > :not(.glow):not(.scroll-hint) {
   color: var(--ink-soft);
 }
 
-
-/* ============================================================
-   QA RESPONSIVE PATCH · GLASS / TRANSPARENCY WIDTH
-   ============================================================
-   Evita que las superficies transparentes se estiren sin control,
-   pero sin recortar el glow ni el fondo 3D del hero.
-   ============================================================ */
-.pillars,
-.case-card,
-.twin-case,
-.pro-section,
-.support-section,
-.contact-grid,
-.close-hero,
-.hero-stats,
-.case-meta-row,
-.agents-grid,
-.pro-grid,
-.tiers-grid,
-.support-formula,
-.scenarios {
-  width: 100%;
-  max-width: min(var(--glass-max-width), 100%);
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.hero-content,
-.who-statement,
-.who-paragraph,
-.section-header,
-.case-header,
-.subsection-title,
-.subsection-desc,
-.close-footer {
-  width: 100%;
-  max-width: var(--content-max-width);
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.hero-content {
-  align-self: stretch;
-}
-
-/* Forzar wrap real en textos que antes podían empujar el viewport en mobile. */
-.hero-brand-tag,
-.hero-meta,
-.hero-eyebrow,
-.section-meta,
-.case-status,
-.contact-value,
-.tag,
-nav a {
-  overflow-wrap: anywhere;
-}
-
-@media (min-width: 1281px) {
-  .hero .glow.cyan { right: -200px; }
-  .hero .glow.violet { left: -160px; }
-}
-
 /* ============================================================
    DNA 3D BACKGROUND
    ============================================================ */
 #dna-canvas {
   position: fixed;
-  inset: 0;
-  display: block;
-  width: 100dvw !important;
-  height: 100dvh !important;
-  min-width: 100vw;
-  min-height: 100vh;
-  max-width: none !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
   z-index: 1;
   opacity: 0.5;
@@ -1747,7 +1660,6 @@ img {
    ============================================================ */
 @media (max-width: 720px) {
   html { font-size: 15px; }
-  :root { --glass-max-width: 100%; }
 
   section { min-height: auto; }
   .hero { padding-top: clamp(96px, 18vw, 120px); min-height: 100vh; }
@@ -1832,8 +1744,6 @@ img {
   .hero-eyebrow::before { width: 24px; }
 
   .hero-stats { gap: 14px; }
-  .hero-content { margin-top: 5vh; }
-  .hero-title { height: clamp(54px, 21vw, 96px); margin-bottom: 36px; }
   .hero-stat .stat-label { font-size: 9px; }
 
   .pillars { grid-template-columns: 1fr; gap: 14px; }
@@ -1910,4 +1820,337 @@ img {
   section { page-break-inside: avoid; min-height: auto; }
 }
 
-/* QA-FINAL-2026-05-23: sección full-width, contenido max-width, canvas sin corte lateral. */
+/* ============================================================
+   HELIXFIX · RESPONSIVE HARDENING PATCH
+   Corrige overflow horizontal, mejora layouts mobile y limita
+   el ancho visual de los paneles con efecto transparente/glass.
+   ============================================================ */
+
+:root {
+  --glass-max-width: 1120px;
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  min-width: 320px;
+}
+
+*,
+*::before,
+*::after {
+  min-width: 0;
+}
+
+section {
+  width: min(100%, 1280px);
+}
+
+/* Limita el ancho de los bloques principales con fondo transparente/glass */
+.case-mockup,
+.pro-section,
+.support-section,
+.twin-case {
+  width: 100%;
+  max-width: var(--glass-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.case-body,
+.zyphor-capabilities,
+.pricing-tiers,
+.support-header,
+.support-formula,
+.scenarios,
+.twin-cases,
+.contact-grid,
+.close-hero {
+  width: 100%;
+  max-width: var(--glass-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Evita que textos largos rompan el ancho en tablets/móviles */
+.hero-brand-tag,
+.hero-meta,
+.section-meta,
+.case-num,
+.case-status,
+.meta-value,
+.agent-tile-name,
+.agent-tile-desc,
+.pro-price,
+.tier-label,
+.tier-scope,
+.formula-label,
+.scenario-name,
+.scenario-price,
+.twin-num,
+.twin-tagline,
+.tag,
+.contact-value,
+.close-footer-left,
+.close-footer-right {
+  overflow-wrap: anywhere;
+}
+
+.case-status,
+.pro-price,
+.scenario-price {
+  white-space: normal;
+}
+
+/* El canvas con 100vw puede crear micro-scrollbars en algunos navegadores */
+#dna-canvas {
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --glass-max-width: 920px;
+  }
+
+  .case-mockup,
+  .pro-section,
+  .support-section,
+  .twin-case {
+    border-radius: 28px;
+  }
+
+  .case-logo-lockup {
+    gap: 14px;
+  }
+}
+
+@media (max-width: 900px) {
+  :root {
+    --glass-max-width: 760px;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .case-header,
+  .section-header {
+    gap: 14px;
+  }
+}
+
+@media (max-width: 720px) {
+  :root {
+    --section-padding-x: clamp(18px, 5vw, 28px);
+    --section-padding-y: clamp(56px, 12vw, 84px);
+    --glass-max-width: 100%;
+  }
+
+  section {
+    padding-left: var(--section-padding-x);
+    padding-right: var(--section-padding-x);
+    overflow: hidden;
+  }
+
+  .hero {
+    min-height: auto;
+    padding-top: 104px;
+  }
+
+  .hero-content {
+    margin-top: 48px;
+  }
+
+  .hero-title {
+    height: clamp(54px, 17vw, 92px);
+    margin-bottom: 34px;
+  }
+
+  .hero-subtitle {
+    margin-bottom: 42px;
+  }
+
+  .hero-stats {
+    padding-top: 28px;
+  }
+
+  .section-header {
+    margin-bottom: 48px;
+  }
+
+  .who-statement {
+    margin-bottom: 36px;
+  }
+
+  .who-paragraph {
+    margin-bottom: 48px;
+  }
+
+  .case-logo-lockup {
+    align-items: flex-start;
+  }
+
+  .case-status {
+    width: fit-content;
+    max-width: 100%;
+    line-height: 1.45;
+  }
+
+  .case-mockup,
+  .pro-section,
+  .support-section,
+  .twin-case {
+    border-radius: 24px;
+  }
+
+  .case-body,
+  .agents-grid,
+  .tiers-grid,
+  .support-formula,
+  .scenarios,
+  .contact-grid {
+    margin-bottom: 44px;
+  }
+
+  .support-section .support-formula,
+  .support-section .scenarios {
+    margin-bottom: 28px;
+  }
+
+  .scenario-price {
+    align-self: flex-start;
+  }
+
+  .twin-case {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 560px) {
+  nav {
+    justify-content: space-between;
+  }
+
+  nav .brand {
+    padding-right: 8px;
+    max-width: calc(100% - 48px);
+  }
+
+  nav .brand .brand-logo {
+    max-width: 180px;
+    height: auto;
+    max-height: 20px;
+  }
+
+  .hero-top {
+    padding-top: 20px;
+  }
+
+  .hero-brand-mark {
+    height: 46px;
+  }
+
+  .hero-brand-tag,
+  .hero-meta,
+  .section-meta,
+  .case-num,
+  .twin-num,
+  .contact-label,
+  .close-pre {
+    letter-spacing: 0.18em;
+  }
+
+  .hero-eyebrow {
+    letter-spacing: 0.22em;
+    gap: 10px;
+  }
+
+  .hero-stats,
+  .case-meta-row,
+  .agents-grid,
+  .pro-grid,
+  .tiers-grid,
+  .support-formula,
+  .scenarios,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pillar,
+  .meta-cell,
+  .agent-tile,
+  .pro-tile,
+  .tier-card,
+  .formula-cell,
+  .scenario,
+  .contact-card {
+    border-radius: 18px;
+  }
+
+  .twin-visual {
+    min-height: 190px;
+  }
+
+  .close-title {
+    font-size: clamp(46px, 18vw, 86px);
+  }
+}
+
+@media (max-width: 420px) {
+  :root {
+    --section-padding-x: 16px;
+  }
+
+  nav {
+    width: calc(100% - 16px);
+    max-width: calc(100% - 16px);
+  }
+
+  nav .brand .brand-logo {
+    max-width: 150px;
+  }
+
+  .hero-brand {
+    max-width: 100%;
+  }
+
+  .hero-brand-text {
+    width: 100%;
+  }
+
+  .hero-title {
+    height: clamp(46px, 16vw, 68px);
+  }
+
+  .hero-subtitle,
+  .who-paragraph,
+  .case-text,
+  .subsection-desc,
+  .twin-desc,
+  .close-sub {
+    font-size: 14.5px;
+  }
+
+  .case-mockup,
+  .pro-section,
+  .support-section,
+  .twin-case {
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .pro-section::before {
+    right: 14px;
+    top: 10px;
+  }
+
+  .tag {
+    max-width: 100%;
+  }
+}
