@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Helix · Portafolio · Casos</title>
+
+<!-- Fuentes -->
+
+<!-- Iconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
+
+<!-- Estilos -->
+<link rel="stylesheet" href="styles.css?v=20260615b">
+
+<!-- Importmap para three.js (debe ir antes de cualquier módulo) -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+
+<!-- Canvas para fondo 3D -->
+<canvas id="dna-canvas"></canvas>
+
+<!-- Cuadrícula de fondo -->
+<div class="grid-bg"></div>
+
+<!-- ====================================================
+     NAV
+     ==================================================== -->
+<nav>
+  <div class="brand">
+    <a href="index.html"><img class="brand-logo" src="assets/helixfix-logo-horizontal.png" alt="HelixFix"></a>
+  </div>
+  <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links">
+    <a href="index.html">Inicio</a>
+    <a href="#zyphor">Zyphor</a>
+    <a href="#pyme">PymeManager</a>
+    <a href="#taller">TallerManager</a>
+    <a href="index.html#contact">Contacto</a>
+  </div>
+</nav>
+
+<!-- ====================================================
+     HEADER PORTAFOLIO
+     ==================================================== -->
+<section class="who-section" id="top" style="padding-top: clamp(120px, 16vw, 180px);">
+  <div class="glow cyan"></div>
+  <div class="glow violet"></div>
+
+  <div class="section-header reveal">
+    <span class="section-num">Portafolio · 2026</span>
+    <h2 class="section-title">Casos de trabajo</h2>
+    <div class="section-spacer"></div>
+    <span class="section-meta">Helix · Confidencial</span>
+  </div>
+
+  <h3 class="who-statement reveal reveal-1">
+    Lo que <em>construimos</em>:<br>
+    productos que operan en el mundo real.
+  </h3>
+  <p class="who-paragraph reveal reveal-2">
+    Una selección de proyectos entregados, desde una plataforma SaaS multi-agente
+    IA en producción hasta software de escritorio y plataformas educativas. Cada
+    caso muestra el desafío, la solución entregada y el stack utilizado.
+  </p>
+  <a class="portfolio-back reveal reveal-3" href="index.html">
+    <i class="fa-solid fa-arrow-left"></i> Volver al inicio
+  </a>
+</section>
+
+<section class="zyphor-section" id="zyphor">
+  <div class="glow cyan"></div>
+  <div class="glow violet"></div>
+
+  <div class="case-header reveal">
+    <span class="case-num">01 · Caso</span>
+    <div class="case-name case-logo-lockup">
+      <img class="case-logo-img" src="assets/zyphor-logo.png" alt="ZyphorAI">
+      <span class="case-logo-by">by <strong>HelixFix</strong></span>
+    </div>
+    <span class="case-status">En producción · Chile + USA</span>
+  </div>
+
+  <div class="case-meta-row">
+    <div class="meta-cell reveal reveal-1">
+      <div class="meta-label">Sector</div>
+      <div class="meta-value">SaaS B2B · PYME</div>
+    </div>
+    <div class="meta-cell reveal reveal-2">
+      <div class="meta-label">Tipo</div>
+      <div class="meta-value">Plataforma multi-agente IA</div>
+    </div>
+    <div class="meta-cell reveal reveal-3">
+      <div class="meta-label">Entrega</div>
+      <div class="meta-value">2026</div>
+    </div>
+    <div class="meta-cell reveal reveal-4">
+      <div class="meta-label">Modelo</div>
+      <div class="meta-value">Licencia + MRR</div>
+    </div>
+  </div>
+
+  <div class="case-gallery reveal" data-gallery="zyphor">
+    <div class="case-mockup gallery-main">
+      <div class="case-mockup-frame">
+        <img class="case-mockup-image gallery-main-img" src="assets/zyphor/01_dashboard.webp" decoding="async" alt="Zyphor — Dashboard general">
+      </div>
+      <div class="gallery-caption">Dashboard general</div>
+    </div>
+    <div class="gallery-thumbs">
+      <button class="gallery-thumb is-active" data-full="assets/zyphor/01_dashboard.webp" data-caption="Dashboard general"><img src="assets/zyphor/01_dashboard.webp" alt="Dashboard general"></button>
+      <button class="gallery-thumb" data-full="assets/zyphor/02_orquestador.webp" data-caption="Orquestador IA · razonamiento estratégico"><img src="assets/zyphor/02_orquestador.webp" alt="Orquestador IA · razonamiento estratégico"></button>
+      <button class="gallery-thumb" data-full="assets/zyphor/03_sales_chat.webp" data-caption="Sales AI · conversaciones en vivo"><img src="assets/zyphor/03_sales_chat.webp" alt="Sales AI · conversaciones en vivo"></button>
+      <button class="gallery-thumb" data-full="assets/zyphor/04_leads.webp" data-caption="Sales AI · base de leads"><img src="assets/zyphor/04_leads.webp" alt="Sales AI · base de leads"></button>
+      <button class="gallery-thumb" data-full="assets/zyphor/05_analytics.webp" data-caption="Analytics AI · KPIs y reportes"><img src="assets/zyphor/05_analytics.webp" alt="Analytics AI · KPIs y reportes"></button>
+      <button class="gallery-thumb" data-full="assets/zyphor/06_conexiones.webp" data-caption="Conexiones · WhatsApp + motor IA"><img src="assets/zyphor/06_conexiones.webp" alt="Conexiones · WhatsApp + motor IA"></button>
+      <button class="gallery-thumb" data-full="assets/zyphor/07_logs.webp" data-caption="Logs de inteligencia"><img src="assets/zyphor/07_logs.webp" alt="Logs de inteligencia"></button>
+    </div>
+  </div>
+
+  <div class="case-body">
+    <div class="reveal">
+      <div class="case-block-title">Desafío</div>
+      <p class="case-text">
+        El cliente requería una plataforma SaaS multi-tenant capaz de orquestar
+        <strong>múltiples agentes IA</strong> sobre una capa común, con autenticación,
+        aislamiento de datos por cliente, y un panel para gestionar la operación
+        completa. El objetivo final: <strong>licenciar la plataforma a otras empresas</strong>
+        como producto comercial con un catálogo de agentes verticales.
+      </p>
+    </div>
+
+    <div class="reveal reveal-1">
+      <div class="case-block-title">Solución entregada</div>
+      <p class="case-text">
+        Plataforma SaaS completa con <strong>orquestador central</strong>, agentes
+        modulares de Ventas y Analítica, onboarding guiado, sistema de roles,
+        dashboard de KPIs y edge functions para procesamiento IA. El producto
+        quedó <strong>vendiendo a empresas en Chile y Estados Unidos</strong> en sus
+        primeras semanas, con MRR activo.
+      </p>
+      <div class="stack-tags">
+        <span class="tag">React 19</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">Supabase</span>
+        <span class="tag">Edge Functions</span>
+        <span class="tag">OpenAI</span>
+        <span class="tag">Tailwind</span>
+        <span class="tag">Multi-tenant</span>
+        <span class="tag">RLS</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAPABILITIES -->
+  <div class="zyphor-capabilities">
+    <h3 class="subsection-title reveal">
+      Alcance: <em>12 agentes</em> verticales construidos
+    </h3>
+    <p class="subsection-desc reveal reveal-1">
+      La plataforma incluye un catálogo de agentes especializados, todos dentro del
+      Orchestrator y compartiendo el contexto del workspace. Una muestra del alcance entregado.
+    </p>
+
+    <div class="agents-grid">
+      <div class="agent-tile reveal reveal-1">
+        <div class="agent-tile-icon"><i class="fa-solid fa-chart-line"></i></div>
+        <div class="agent-tile-name">Ventas</div>
+        <div class="agent-tile-desc">Califica leads, agenda reuniones, propone próximos pasos.</div>
+      </div>
+      <div class="agent-tile reveal reveal-1">
+        <div class="agent-tile-icon"><i class="fa-solid fa-headset"></i></div>
+        <div class="agent-tile-name">Atención Cliente</div>
+        <div class="agent-tile-desc">Resuelve consultas, escala casos, mantiene tono de marca.</div>
+      </div>
+      <div class="agent-tile reveal reveal-2">
+        <div class="agent-tile-icon"><i class="fa-solid fa-money-bill-wave"></i></div>
+        <div class="agent-tile-name">Cobranza</div>
+        <div class="agent-tile-desc">Recordatorios, negociación de plazos, reporte de morosidad.</div>
+      </div>
+      <div class="agent-tile reveal reveal-2">
+        <div class="agent-tile-icon"><i class="fa-solid fa-calendar-check"></i></div>
+        <div class="agent-tile-name">Reservas</div>
+        <div class="agent-tile-desc">Gestiona disponibilidad, confirma citas, reduce no-shows.</div>
+      </div>
+      <div class="agent-tile reveal reveal-3">
+        <div class="agent-tile-icon"><i class="fa-solid fa-bullhorn"></i></div>
+        <div class="agent-tile-name">Marketing</div>
+        <div class="agent-tile-desc">Copys, segmentación de audiencias, campañas multicanal.</div>
+      </div>
+      <div class="agent-tile reveal reveal-3">
+        <div class="agent-tile-icon"><i class="fa-solid fa-users"></i></div>
+        <div class="agent-tile-name">RRHH</div>
+        <div class="agent-tile-desc">Filtrado de CVs, onboarding interno, FAQ de empleados.</div>
+      </div>
+      <div class="agent-tile reveal reveal-4">
+        <div class="agent-tile-icon"><i class="fa-solid fa-life-ring"></i></div>
+        <div class="agent-tile-name">Soporte N1</div>
+        <div class="agent-tile-desc">Diagnóstico, troubleshooting guiado, derivación a humanos.</div>
+      </div>
+      <div class="agent-tile reveal reveal-4">
+        <div class="agent-tile-icon"><i class="fa-solid fa-user-plus"></i></div>
+        <div class="agent-tile-name">Onboarding</div>
+        <div class="agent-tile-desc">Acompaña nuevos clientes, activa features, mide adopción.</div>
+      </div>
+      <div class="agent-tile reveal reveal-5">
+        <div class="agent-tile-icon"><i class="fa-solid fa-square-poll-vertical"></i></div>
+        <div class="agent-tile-name">Encuestas</div>
+        <div class="agent-tile-desc">NPS / CSAT, consolida resultados, detecta señales de churn.</div>
+      </div>
+      <div class="agent-tile reveal reveal-5">
+        <div class="agent-tile-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <div class="agent-tile-name">Logística</div>
+        <div class="agent-tile-desc">Estado de pedidos, tracking, alertas de retraso, couriers.</div>
+      </div>
+      <div class="agent-tile reveal reveal-6">
+        <div class="agent-tile-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div class="agent-tile-name">Tutor / Educativo</div>
+        <div class="agent-tile-desc">Resuelve dudas de alumnos, refuerza contenidos, progresos.</div>
+      </div>
+      <div class="agent-tile reveal reveal-6">
+        <div class="agent-tile-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+        <div class="agent-tile-name">Cotizaciones</div>
+        <div class="agent-tile-desc">Propuestas con catálogo, descuentos, validez automática.</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ====================================================
+     CASO 02 · PYMEMANAGER  (galería real — Botillería El Bolón)
+     ==================================================== -->
+<section class="zyphor-section" id="pyme">
+  <div class="glow cyan"></div>
+  <div class="glow violet"></div>
+
+  <div class="case-header reveal">
+    <span class="case-num">02 · Caso</span>
+    <div class="case-name">Pyme<span class="accent">Manager</span></div>
+    <span class="case-status">En producción · Chile</span>
+  </div>
+
+  <div class="case-meta-row">
+    <div class="meta-cell reveal reveal-1">
+      <div class="meta-label">Sector</div>
+      <div class="meta-value">Retail · Almacén / Botillería</div>
+    </div>
+    <div class="meta-cell reveal reveal-2">
+      <div class="meta-label">Tipo</div>
+      <div class="meta-value">POS + Inventario + IA</div>
+    </div>
+    <div class="meta-cell reveal reveal-3">
+      <div class="meta-label">Cliente</div>
+      <div class="meta-value">Botillería El Bolón · Maipú</div>
+    </div>
+    <div class="meta-cell reveal reveal-4">
+      <div class="meta-label">Plataforma</div>
+      <div class="meta-value">Escritorio + Nube</div>
+    </div>
+  </div>
+
+  <div class="case-gallery reveal" data-gallery="pyme">
+    <div class="case-mockup gallery-main">
+      <div class="case-mockup-frame">
+        <img class="case-mockup-image gallery-main-img" src="assets/pyme/01_dashboard.webp" decoding="async" alt="PymeManager — Dashboard de Botillería El Bolón">
+      </div>
+      <div class="gallery-caption">Dashboard · Inicio Almacén</div>
+    </div>
+    <div class="gallery-thumbs">
+      <button class="gallery-thumb is-active" data-full="assets/pyme/01_dashboard.webp" data-caption="Dashboard · Inicio Almacén"><img src="assets/pyme/01_dashboard.webp" alt="Dashboard"></button>
+      <button class="gallery-thumb" data-full="assets/pyme/02_ventas.webp" data-caption="Punto de Venta (POS) · El Bolón"><img src="assets/pyme/02_ventas.webp" alt="Punto de venta"></button>
+      <button class="gallery-thumb" data-full="assets/pyme/04_inventario.webp" data-caption="Productos e Inventario"><img src="assets/pyme/04_inventario.webp" alt="Inventario"></button>
+      <button class="gallery-thumb" data-full="assets/pyme/05_reportes.webp" data-caption="Reportes y Auditoría"><img src="assets/pyme/05_reportes.webp" alt="Reportes"></button>
+      <button class="gallery-thumb" data-full="assets/pyme/03_compras.webp" data-caption="Compras y Abasto"><img src="assets/pyme/03_compras.webp" alt="Compras"></button>
+      <button class="gallery-thumb" data-full="assets/pyme/06_asesor.webp" data-caption="Asesor Comercial IA"><img src="assets/pyme/06_asesor.webp" alt="Asesor IA"></button>
+    </div>
+  </div>
+
+  <div class="case-body">
+    <div class="reveal">
+      <div class="case-block-title">Desafío</div>
+      <p class="case-text">
+        Un almacén / botillería de barrio necesitaba dejar atrás el cuaderno y la planilla:
+        controlar <strong>ventas, boletas, inventario crítico y caja</strong> en una sola
+        herramienta simple, que funcionara incluso <strong>sin depender de internet</strong>
+        y mantuviera los datos del negocio bajo su control.
+      </p>
+    </div>
+    <div class="reveal reveal-1">
+      <div class="case-block-title">Solución entregada</div>
+      <p class="case-text">
+        Plataforma de gestión con <strong>punto de venta, control de inventario con stock
+        crítico, promociones, reportes con IVA y un asesor comercial con IA</strong> que responde
+        sobre los datos reales del negocio. Entregada para la operación real de
+        <strong>Botillería El Bolón</strong>, con su catálogo, ventas y métricas en vivo.
+      </p>
+      <div class="stack-tags">
+        <span class="tag">Electron</span>
+        <span class="tag">React 19</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">Vite</span>
+        <span class="tag">Gemini AI</span>
+        <span class="tag">Recharts</span>
+        <span class="tag">PapaParse</span>
+        <span class="tag">Multi-local</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================
+     CASO 03 · TALLERMANAGER CHILE  (galería real)
+     ==================================================== -->
+<section class="zyphor-section" id="taller">
+  <div class="glow cyan"></div>
+  <div class="glow violet"></div>
+
+  <div class="case-header reveal">
+    <span class="case-num">03 · Caso</span>
+    <div class="case-name">Taller<span class="accent">Manager</span></div>
+    <span class="case-status">Producción · Chile + Perú</span>
+  </div>
+
+  <div class="case-meta-row">
+    <div class="meta-cell reveal reveal-1">
+      <div class="meta-label">Sector</div>
+      <div class="meta-value">Talleres automotrices</div>
+    </div>
+    <div class="meta-cell reveal reveal-2">
+      <div class="meta-label">Tipo</div>
+      <div class="meta-value">Vertical SaaS · OT + Stock</div>
+    </div>
+    <div class="meta-cell reveal reveal-3">
+      <div class="meta-label">Mercado</div>
+      <div class="meta-value">Chile + Perú (SUNAT)</div>
+    </div>
+    <div class="meta-cell reveal reveal-4">
+      <div class="meta-label">Modelo</div>
+      <div class="meta-value">Licencia + nube multi-tenant</div>
+    </div>
+  </div>
+
+  <div class="case-gallery reveal" data-gallery="taller">
+    <div class="case-mockup gallery-main">
+      <div class="case-mockup-frame">
+        <img class="case-mockup-image gallery-main-img" src="assets/taller/01_dashboard.webp" decoding="async" alt="TallerManager — Dashboard de taller">
+      </div>
+      <div class="gallery-caption">Dashboard · Inicio Taller</div>
+    </div>
+    <div class="gallery-thumbs">
+      <button class="gallery-thumb is-active" data-full="assets/taller/01_dashboard.webp" data-caption="Dashboard · Inicio Taller"><img src="assets/taller/01_dashboard.webp" alt="Dashboard"></button>
+      <button class="gallery-thumb" data-full="assets/taller/02_ordenes.webp" data-caption="Órdenes de Trabajo (OT)"><img src="assets/taller/02_ordenes.webp" alt="Órdenes de trabajo"></button>
+      <button class="gallery-thumb" data-full="assets/taller/04_repuestos.webp" data-caption="Repuestos e Inventario"><img src="assets/taller/04_repuestos.webp" alt="Repuestos"></button>
+      <button class="gallery-thumb" data-full="assets/taller/05_reportes.webp" data-caption="Reportes y Auditoría"><img src="assets/taller/05_reportes.webp" alt="Reportes"></button>
+      <button class="gallery-thumb" data-full="assets/taller/03_gastos.webp" data-caption="Gastos y Compras"><img src="assets/taller/03_gastos.webp" alt="Gastos"></button>
+      <button class="gallery-thumb" data-full="assets/taller/06_asesor.webp" data-caption="Asesor Mecánico IA"><img src="assets/taller/06_asesor.webp" alt="Asesor IA"></button>
+    </div>
+  </div>
+
+  <div class="case-body">
+    <div class="reveal">
+      <div class="case-block-title">Desafío</div>
+      <p class="case-text">
+        Los talleres mecánicos llevaban sus <strong>órdenes de trabajo</strong> en papel:
+        vehículos, diagnósticos, mano de obra, repuestos y pagos dispersos, sin trazabilidad
+        ni control de stock. Se necesitaba un sistema vertical que ordenara el
+        <strong>ciclo completo de reparación</strong> y se adaptara a la normativa de
+        cada país.
+      </p>
+    </div>
+    <div class="reveal reveal-1">
+      <div class="case-block-title">Solución entregada</div>
+      <p class="case-text">
+        SaaS vertical para talleres: <strong>órdenes de trabajo con ficha de vehículo,
+        mecánico asignado, repuestos e inventario, gastos, reportes y asesor mecánico con
+        IA</strong>. Arquitectura <strong>multi-tenant en la nube</strong> con licencias por
+        cliente y soporte para Chile y <strong>facturación electrónica SUNAT en Perú</strong>.
+      </p>
+      <div class="stack-tags">
+        <span class="tag">React 19</span>
+        <span class="tag">TanStack Start</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">Supabase</span>
+        <span class="tag">Gemini AI</span>
+        <span class="tag">Multi-tenant</span>
+        <span class="tag">SUNAT / IGV</span>
+        <span class="tag">RLS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================
+     CASO 04 · OTROS (MVP cliente confidencial)
+     ==================================================== -->
+<section class="cases-section" id="cases">
+  <div class="glow cyan"></div>
+  <div class="glow violet"></div>
+
+  <div class="section-header reveal">
+    <span class="section-num">04 / 04</span>
+    <h2 class="section-title">Otros casos</h2>
+    <div class="section-spacer"></div>
+    <span class="section-meta">MVP cliente</span>
+  </div>
+
+  <div class="twin-cases">
+    <article class="twin-case reveal" style="grid-column: 1 / -1;">
+      <div class="twin-info">
+        <div class="twin-num">/ 04 · MVP cliente</div>
+        <h3 class="twin-name">Proyecto EdTech</h3>
+        <div class="twin-tagline">Plataforma educativa multi-rol</div>
+        <p class="twin-desc">
+          MVP de plataforma educativa con <strong>3 roles diferenciados</strong>
+          (administrador, profesor, estudiante), construida sobre stack WordPress
+          con personalización avanzada de CSS y resolución de conflictos entre
+          theme y plugin de canvas. Entregado en fase MVP, listo para expansión
+          a producto final.
+        </p>
+        <div class="twin-stack">
+          <span class="tag">WordPress</span>
+          <span class="tag">Elementor Pro</span>
+          <span class="tag">PHP</span>
+          <span class="tag">CSS Custom</span>
+          <span class="tag">LMS Multi-Rol</span>
+          <span class="tag">JavaScript</span>
+        </div>
+      </div>
+      <div class="twin-visual">
+        <div class="anon-mockup">
+          <div class="anon-content">
+            <div class="anon-icon">◐</div>
+            <div class="anon-label">
+              <strong>MVP entregado</strong>
+              Imagen reservada<br>por confidencialidad
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+
+<!-- ====================================================
+     CTA CIERRE PORTAFOLIO
+     ==================================================== -->
+<section class="close-section">
+  <div class="glow cyan"></div>
+  <div class="glow violet"></div>
+
+  <div class="close-hero">
+    <div class="close-pre reveal">— ¿Tienes un proceso que automatizar? —</div>
+    <h2 class="close-title reveal reveal-1">
+      Hagamos<br>
+      tu <em>próximo</em> caso.
+    </h2>
+    <p class="close-sub reveal reveal-2">
+      Si quieres un producto con IA con criterio o automatizar lo operativo,
+      conversemos. Cotizamos según alcance.
+    </p>
+    <div style="margin-top: 36px; display:flex; gap:18px; flex-wrap:wrap; align-items:center;">
+      <a class="helix-cta reveal reveal-3" href="index.html#contact">
+        Conversemos <i class="fa-solid fa-arrow-right"></i>
+      </a>
+      <div class="social-row reveal reveal-3">
+        <a class="social-icon" href="https://wa.me/56945140075" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a class="social-icon" href="https://www.instagram.com/helixfixchile/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a class="social-icon" href="https://www.linkedin.com/in/gabriel-sol%C3%ADs-8597a7154" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="close-footer">
+    <div class="close-footer-left">Helix · Portafolio 2026 · Confidencial</div>
+    <div class="close-footer-right">— Hecho en Santiago, Chile.</div>
+  </div>
+</section>
+
+<!-- Scripts -->
+<script src="scripts.js?v=20260615b" defer></script>
+<script type="module" src="dna.js"></script>
+
+</body>
+</html>
