@@ -1,32 +1,18 @@
 /* ============================================================
    HELIX · dna.js
-   Fondo 3D de doble hélice (WebGL) en desktop.
-   En mobile/tablet usa un fallback liviano basado en imagen.
+   Fondo 3D de doble hélice (WebGL).
+   En mobile/tablet renderiza el mismo modelo una sola vez, sin animación.
    ============================================================ */
 
 const isMobileViewport = window.matchMedia(
   '(max-width: 1024px), (hover: none) and (pointer: coarse)'
 ).matches;
 
-if (isMobileViewport) {
-  /* Fallback estático para mobile/tablet */
-  const fallback = document.createElement('div');
-  fallback.id = 'dna-fallback';
-  fallback.setAttribute('aria-hidden', 'true');
-  fallback.style.cssText = `
-    position: fixed; inset: 0; z-index: 1; pointer-events: none;
-    background:
-      radial-gradient(ellipse at 50% 30%, rgba(6, 214, 255, 0.10), transparent 60%),
-      radial-gradient(ellipse at 50% 70%, rgba(124, 58, 237, 0.08), transparent 60%),
-      url('assets/dna-strand.png') center / contain no-repeat;
-    opacity: 0.16;
-    filter: blur(0.5px);
-  `;
-  document.body.appendChild(fallback);
-  const cv = document.getElementById('dna-canvas');
-  if (cv) cv.style.display = 'none';
-} else {
-  /* Desktop: WebGL helix con postprocessing */
+/*
+ * El mismo ADN 3D se renderiza en todos los dispositivos.
+ * En mobile/tablet se dibuja una sola vez: sin giro por scroll,
+ * sin parallax y sin bucle requestAnimationFrame.
+ */
   import('https://unpkg.com/three@0.160.0/build/three.module.js').then(THREE_NS => {
     return Promise.all([
       THREE_NS,
@@ -45,7 +31,7 @@ if (isMobileViewport) {
     const renderer = new THREE.WebGLRenderer({
       canvas, antialias: true, alpha: true, powerPreference: 'high-performance'
     });
-    const isMobile = window.matchMedia('(max-width: 720px)').matches;
+    const isMobile = isMobileViewport;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.25 : 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x000000, 0);
@@ -65,8 +51,8 @@ if (isMobileViewport) {
     const PITCH = 4.6;
     const HELIX_LEN = TURNS * PITCH;
     const TUBE_RADIUS = 0.11;
-    const TUBE_SEGS = 480;
-    const TUBE_RADIAL = 14;
+    const TUBE_SEGS = isMobile ? 280 : 480;
+    const TUBE_RADIAL = isMobile ? 10 : 14;
     const RUNG_RADIUS = 0.07;
     const RUNGS_PER_TURN = 10;
 
@@ -188,7 +174,7 @@ if (isMobileViewport) {
     }
     const partTex = makeParticleSprite();
 
-    const PCOUNT = isMobile ? 120 : 260;
+    const PCOUNT = isMobile ? 0 : 260;
     const ppos = new Float32Array(PCOUNT * 3);
     for (let i = 0; i < PCOUNT; i++) {
       ppos[i * 3 + 0] = (Math.random() - 0.5) * 22;
@@ -205,7 +191,7 @@ if (isMobileViewport) {
     const particles = new THREE.Points(partGeo, partMat);
     scene.add(particles);
 
-    const FCOUNT = isMobile ? 30 : 70;
+    const FCOUNT = isMobile ? 0 : 70;
     const fpos = new Float32Array(FCOUNT * 3);
     for (let i = 0; i < FCOUNT; i++) {
       fpos[i * 3 + 0] = (Math.random() - 0.5) * 28;
@@ -241,14 +227,18 @@ if (isMobileViewport) {
       state.scroll = p;
       state.tRotY = p * Math.PI * 2;
     }
-    window.addEventListener('scroll', onScroll, { passive: true });
+    if (!isMobile) {
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
 
     /* Pointer parallax */
     const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
-    window.addEventListener('pointermove', e => {
-      pointer.tx = (e.clientX / window.innerWidth - 0.5) * 0.25;
-      pointer.ty = (e.clientY / window.innerHeight - 0.5) * 0.18;
-    });
+    if (!isMobile) {
+      window.addEventListener('pointermove', e => {
+        pointer.tx = (e.clientX / window.innerWidth - 0.5) * 0.25;
+        pointer.ty = (e.clientY / window.innerHeight - 0.5) * 0.18;
+      });
+    }
 
     function onResize() {
       const w = window.innerWidth, h = window.innerHeight;
@@ -257,6 +247,7 @@ if (isMobileViewport) {
       renderer.setSize(w, h);
       composer.setSize(w, h);
       bloom.setSize(w, h);
+      if (isMobile) composer.render();
     }
     window.addEventListener('resize', onResize);
 
@@ -282,9 +273,17 @@ if (isMobileViewport) {
       requestAnimationFrame(tick);
     }
     onResize();
-    onScroll();
-    tick();
 
-    window.__dna = { DNA, camera, state, scene };
+    if (isMobile) {
+      DNA.rotation.y = 0;
+      DNA.position.y = 0;
+      camera.position.set(0, 0, 8.2);
+      camera.lookAt(0, 0, 0);
+      composer.render();
+    } else {
+      onScroll();
+      tick();
+    }
+
+    window.__dna = { DNA, camera, state, scene, staticOnMobile: isMobile };
   });
-}
