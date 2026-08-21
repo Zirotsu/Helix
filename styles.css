@@ -1,4 +1,29 @@
 /* ============================================================
+   FUENTES AUTO-ALOJADAS (no dependen de Google Fonts)
+   Display = Michroma / Orbitron (geométricas, como el logo HelixFix)
+   ============================================================ */
+@font-face {
+  font-family: 'Michroma';
+  src: url('assets/fonts/Michroma.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Orbitron';
+  src: url('assets/fonts/Orbitron.woff2') format('woff2');
+  font-weight: 400 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Geist';
+  src: url('assets/fonts/Geist.woff2') format('woff2');
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('assets/fonts/GeistMono.woff2') format('woff2');
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+
+/* ============================================================
    HELIX · PORTFOLIO WEB · 2026
    styles.css — Versión separada y con responsividad mejorada
    ============================================================ */
@@ -21,6 +46,9 @@
   --amber: #fbbf24;
   --glass-bg: rgba(255, 255, 255, 0.04);
   --glass-border: rgba(255, 255, 255, 0.1);
+  /* Tipografía display: geométrica cuadrada, en sintonía con el logo HelixFix */
+  --font-display: 'Michroma', 'Orbitron', sans-serif;
+  --font-display-soft: 'Orbitron', 'Michroma', sans-serif;
 
   /* Padding horizontal responsivo unificado */
   --section-padding-x: clamp(20px, 5vw, 80px);
@@ -249,7 +277,7 @@ section > :not(.glow):not(.scroll-hint) {
 }
 
 .display {
-  font-family: 'Instrument Serif', serif;
+  font-family: var(--font-display);
   font-weight: 400;
   letter-spacing: -0.02em;
 }
@@ -435,7 +463,7 @@ section > :not(.glow):not(.scroll-hint) {
 
 /* legacy em styles — unused después del swap a logo, mantenidos por seguridad */
 .hero-title em {
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
   color: var(--cyan-soft);
   display: inline-block;
@@ -465,12 +493,12 @@ section > :not(.glow):not(.scroll-hint) {
 }
 
 .hero-stat .number {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(28px, 4vw, 56px);
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3.4vw, 46px);
   color: var(--cyan);
   line-height: 1;
   margin-bottom: 8px;
-  font-style: italic;
+  letter-spacing: 0;
 }
 .hero-stat .number-unit {
   font-size: 0.6em;
@@ -551,9 +579,9 @@ section > :not(.glow):not(.scroll-hint) {
 }
 
 .section-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(36px, 5vw, 64px);
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3vw, 40px);
+  letter-spacing: 0;
   color: var(--ink);
 }
 
@@ -568,16 +596,17 @@ section > :not(.glow):not(.scroll-hint) {
 }
 
 .who-statement {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(28px, 5vw, 72px);
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(16px, 2vw, 28px);
+  line-height: 1.5;
+  letter-spacing: 0;
   color: var(--ink);
   margin-bottom: 60px;
   max-width: 1200px;
 }
 .who-statement em {
-  font-style: italic;
+  font-style: normal;
   color: var(--cyan-soft);
 }
 
@@ -637,12 +666,12 @@ section > :not(.glow):not(.scroll-hint) {
   margin-bottom: 16px;
 }
 .pillar-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(22px, 2.4vw, 28px);
-  line-height: 1.15;
+  font-family: var(--font-display);
+  font-size: clamp(15px, 1.5vw, 19px);
+  line-height: 1.25;
   color: var(--ink);
   margin-bottom: 14px;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 .pillar-desc {
   font-size: 14px;
@@ -692,9 +721,9 @@ section > :not(.glow):not(.scroll-hint) {
 }
 
 .case-name {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(48px, 8vw, 120px);
-  letter-spacing: -0.03em;
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5vw, 52px);
+  letter-spacing: 0;
   color: var(--ink);
   line-height: 1;
 }
@@ -885,14 +914,14 @@ section > :not(.glow):not(.scroll-hint) {
 }
 
 .subsection-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(28px, 4vw, 48px);
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.6vw, 34px);
+  letter-spacing: 0;
   color: var(--ink);
   margin-bottom: 16px;
 }
 .subsection-title em {
-  font-style: italic;
+  font-style: normal;
   color: var(--cyan-soft);
 }
 
@@ -968,8 +997,8 @@ section > :not(.glow):not(.scroll-hint) {
   position: absolute;
   top: 20px;
   right: 30px;
-  font-family: 'Instrument Serif', serif;
-  font-style: italic;
+  font-family: var(--font-display);
+  font-style: normal;
   font-size: clamp(50px, 8vw, 80px);
   color: rgba(167, 139, 250, 0.08);
   letter-spacing: -0.02em;
@@ -985,12 +1014,12 @@ section > :not(.glow):not(.scroll-hint) {
 }
 
 .pro-title {
-  font-family: 'Instrument Serif', serif;
+  font-family: var(--font-display);
   font-size: clamp(28px, 3.4vw, 36px);
   color: var(--ink);
 }
 .pro-title em {
-  font-style: italic;
+  font-style: normal;
   color: var(--violet);
 }
 
@@ -1026,7 +1055,7 @@ section > :not(.glow):not(.scroll-hint) {
   padding: clamp(18px, 2.5vw, 24px);
 }
 .pro-tile-name {
-  font-family: 'Instrument Serif', serif;
+  font-family: var(--font-display);
   font-size: clamp(18px, 2vw, 22px);
   color: var(--ink);
   margin-bottom: 10px;
@@ -1089,7 +1118,7 @@ section > :not(.glow):not(.scroll-hint) {
   margin-bottom: 8px;
 }
 .tier-price {
-  font-family: 'Instrument Serif', serif;
+  font-family: var(--font-display);
   font-size: clamp(38px, 4.5vw, 48px);
   color: var(--ink);
   margin-bottom: 8px;
@@ -1158,12 +1187,12 @@ section > :not(.glow):not(.scroll-hint) {
   margin-bottom: 12px;
 }
 .formula-cell .formula-value {
-  font-family: 'Instrument Serif', serif;
+  font-family: var(--font-display);
   font-size: clamp(28px, 3.4vw, 36px);
   color: var(--ink);
   letter-spacing: -0.02em;
 }
-.formula-cell .formula-value em { color: var(--cyan); font-style: italic; }
+.formula-cell .formula-value em { color: var(--cyan); font-style: normal; }
 
 .scenarios {
   display: grid;
@@ -1196,8 +1225,8 @@ section > :not(.glow):not(.scroll-hint) {
   margin-bottom: 4px;
 }
 .scenario-price {
-  font-family: 'Instrument Serif', serif;
-  font-style: italic;
+  font-family: var(--font-display);
+  font-style: normal;
   font-size: clamp(22px, 2.5vw, 28px);
   color: var(--cyan);
   white-space: nowrap;
@@ -1297,10 +1326,10 @@ section > :not(.glow):not(.scroll-hint) {
 }
 
 .twin-name {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(34px, 5vw, 64px);
-  line-height: 1;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3vw, 38px);
+  line-height: 1.05;
+  letter-spacing: 0;
   color: var(--ink);
   margin-bottom: 16px;
 }
@@ -1381,11 +1410,11 @@ section > :not(.glow):not(.scroll-hint) {
   z-index: 2;
 }
 .anon-content .anon-icon {
-  font-family: 'Instrument Serif', serif;
+  font-family: var(--font-display);
   font-size: clamp(56px, 7vw, 80px);
   margin-bottom: 24px;
   color: var(--cyan);
-  font-style: italic;
+  font-style: normal;
 }
 .anon-content .anon-label {
   font-family: 'Geist Mono', monospace;
@@ -1406,11 +1435,15 @@ section > :not(.glow):not(.scroll-hint) {
    CIERRE / CONTACTO
    ============================================================ */
 .close-section {
-  min-height: 100vh;
-  padding-top: clamp(80px, 12vw, 100px);
+  min-height: auto;
+  padding-top: clamp(28px, 3.5vw, 52px);
   padding-bottom: 80px;
   display: flex;
   flex-direction: column;
+}
+/* La sección de "Otros casos" (EdTech) queda más pegada al cierre */
+.cases-section {
+  padding-bottom: clamp(20px, 2.5vw, 36px);
 }
 
 .close-section .glow.cyan {
@@ -1444,15 +1477,15 @@ section > :not(.glow):not(.scroll-hint) {
 }
 
 .close-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(54px, 11vw, 180px);
-  line-height: 0.9;
-  letter-spacing: -0.04em;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 6vw, 66px);
+  line-height: 1.02;
+  letter-spacing: 0;
   color: var(--ink);
   margin-bottom: 40px;
 }
 .close-title em {
-  font-style: italic;
+  font-style: normal;
   color: var(--cyan-soft);
 }
 
@@ -1537,8 +1570,8 @@ section > :not(.glow):not(.scroll-hint) {
 }
 
 .close-footer-right {
-  font-family: 'Instrument Serif', serif;
-  font-style: italic;
+  font-family: var(--font-display);
+  font-style: normal;
   font-size: 16px;
   color: var(--ink-soft);
 }
@@ -2041,3 +2074,242 @@ section {
 }
 
 /* QA-CONTACT-FINAL-2026-05-23: contacto reducido a WhatsApp centrado con ícono Font Awesome. */
+
+/* ============================================================
+   AÑADIDOS · Landing/Portafolio separados (2026)
+   Servicios · Teaser de casos · Botones CTA
+   ============================================================ */
+.services-grid { grid-template-columns: repeat(3, 1fr); }
+
+.helix-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink);
+  padding: 16px 28px;
+  border-radius: 999px;
+  border: 1px solid rgba(6, 214, 255, 0.4);
+  background: rgba(6, 214, 255, 0.08);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.helix-cta:hover {
+  background: rgba(6, 214, 255, 0.16);
+  border-color: var(--cyan);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(6, 214, 255, 0.15);
+}
+.helix-cta i { color: var(--cyan); transition: transform 0.4s; }
+.helix-cta:hover i { transform: translateX(4px); }
+
+.cases-teaser {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 28px;
+}
+.cases-teaser-text {
+  font-size: clamp(15px, 1.6vw, 18px);
+  line-height: 1.7;
+  color: var(--ink-soft);
+  max-width: 760px;
+  font-weight: 300;
+}
+.cases-teaser-list { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.portfolio-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--cyan);
+  text-decoration: none;
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  transition: gap 0.3s;
+}
+.portfolio-back:hover { gap: 14px; }
+
+@media (max-width: 1024px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px)  { .services-grid { grid-template-columns: 1fr; } }
+
+/* ===== Iconos sociales (cierre portafolio) ===== */
+.social-row { display: inline-flex; gap: 12px; align-items: center; }
+.social-icon {
+  width: 48px; height: 48px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--ink-soft);
+  font-size: 20px;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.social-icon:hover {
+  color: var(--cyan);
+  border-color: rgba(6, 214, 255, 0.5);
+  background: rgba(6, 214, 255, 0.08);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(6, 214, 255, 0.12);
+}
+
+/* ============================================================
+   GALERÍA DE CASOS + LIGHTBOX  (agregado)
+   ============================================================ */
+.case-gallery {
+  margin-top: 28px;
+  margin-bottom: clamp(56px, 6vw, 88px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.gallery-main {
+  /* hereda el marco con vidrio + perspectiva de .case-mockup */
+  margin-bottom: 0 !important;
+  cursor: zoom-in;
+}
+.gallery-main-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.gallery-main::after {
+  content: '\f00e';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  right: clamp(20px, 3vw, 40px);
+  bottom: clamp(20px, 3vw, 40px);
+  font-size: 13px;
+  color: var(--ink);
+  background: rgba(5,6,20,0.7);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(8px);
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 999px;
+  opacity: 0; transition: opacity 0.3s ease;
+  z-index: 3;
+}
+.gallery-main:hover::after { opacity: 1; }
+.gallery-caption {
+  position: absolute;
+  left: clamp(20px, 3vw, 40px);
+  bottom: clamp(20px, 3vw, 40px);
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: rgba(5,6,20,0.7);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(8px);
+  padding: 8px 14px;
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 3;
+}
+.gallery-thumbs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+}
+.gallery-thumb {
+  position: relative;
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 0;
+  cursor: pointer;
+  background: var(--glass-bg);
+  aspect-ratio: 16 / 10;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.gallery-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.55;
+  transition: opacity 0.3s ease;
+}
+.gallery-thumb:hover { transform: translateY(-3px); }
+.gallery-thumb:hover img { opacity: 0.85; }
+.gallery-thumb.is-active {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 1px var(--cyan), 0 10px 30px -10px rgba(6,214,255,0.4);
+}
+.gallery-thumb.is-active img { opacity: 1; }
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(3,4,12,0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: clamp(16px, 4vw, 60px);
+}
+.lightbox.open { display: flex; animation: lbFade 0.25s ease; }
+@keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
+.lightbox-stage {
+  position: relative;
+  max-width: 1280px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.lightbox-img {
+  width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 40px 120px -40px rgba(0,0,0,0.9);
+}
+.lightbox-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.lightbox-meta {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.lightbox-counter { color: var(--cyan); }
+.lightbox-nav { display: flex; gap: 10px; }
+.lb-btn {
+  width: 46px; height: 46px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--ink);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+}
+.lb-btn:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px); }
+.lightbox-close {
+  position: absolute;
+  top: -8px; right: 0;
+  transform: translateY(-100%);
+}
+@media (max-width: 600px) {
+  .lightbox-close { top: 6px; right: 6px; transform: none; }
+  .lightbox { padding: 10px; }
+  .gallery-thumbs { grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); }
+}
