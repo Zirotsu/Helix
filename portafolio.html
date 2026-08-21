@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
 
 <!-- Estilos -->
-<link rel="stylesheet" href="styles.css?v=20260615b">
+<link rel="stylesheet" href="styles.css?v=20260820">
 
 <!-- Importmap para three.js (debe ir antes de cualquier módulo) -->
 <script type="importmap">
@@ -45,7 +45,7 @@
   <div class="nav-links">
     <a href="index.html">Inicio</a>
     <a href="#zyphor">Zyphor</a>
-    <a href="#pyme">PymeManager</a>
+    <a href="#omni">Omni Manager</a>
     <a href="#taller">TallerManager</a>
     <a href="index.html#contact">Contacto</a>
   </div>
@@ -240,15 +240,15 @@
 </section>
 
 <!-- ====================================================
-     CASO 02 · PYMEMANAGER  (galería real — Botillería El Bolón)
+     CASO 02 · OMNI MANAGER  (galería real — Botillería El Bolón)
      ==================================================== -->
-<section class="zyphor-section" id="pyme">
+<section class="zyphor-section" id="omni">
   <div class="glow cyan"></div>
   <div class="glow violet"></div>
 
   <div class="case-header reveal">
     <span class="case-num">02 · Caso</span>
-    <div class="case-name">Pyme<span class="accent">Manager</span></div>
+    <div class="case-name">Omni <span class="accent">Manager</span></div>
     <span class="case-status">En producción · Chile</span>
   </div>
 
@@ -267,24 +267,31 @@
     </div>
     <div class="meta-cell reveal reveal-4">
       <div class="meta-label">Plataforma</div>
-      <div class="meta-value">Escritorio + Nube</div>
+      <div class="meta-value">Web + Nube</div>
     </div>
   </div>
 
-  <div class="case-gallery reveal" data-gallery="pyme">
+  <div class="case-external-link reveal reveal-2">
+    <a class="helix-cta" href="https://www.omnimanager.cl" target="_blank" rel="noopener">
+      Visitar Omni Manager <i class="fa-solid fa-arrow-up-right-from-square"></i>
+    </a>
+  </div>
+
+  <div class="case-gallery reveal" data-gallery="omni">
     <div class="case-mockup gallery-main">
       <div class="case-mockup-frame">
-        <img class="case-mockup-image gallery-main-img" src="assets/pyme/01_dashboard.webp" decoding="async" alt="PymeManager — Dashboard de Botillería El Bolón">
+        <img class="case-mockup-image gallery-main-img" src="assets/omnimanager/01_landing.webp" decoding="async" alt="Omni Manager — plataforma modular para pymes">
       </div>
-      <div class="gallery-caption">Dashboard · Inicio Almacén</div>
+      <div class="gallery-caption">Omni Manager · Plataforma modular</div>
     </div>
     <div class="gallery-thumbs">
-      <button class="gallery-thumb is-active" data-full="assets/pyme/01_dashboard.webp" data-caption="Dashboard · Inicio Almacén"><img src="assets/pyme/01_dashboard.webp" alt="Dashboard"></button>
-      <button class="gallery-thumb" data-full="assets/pyme/02_ventas.webp" data-caption="Punto de Venta (POS) · El Bolón"><img src="assets/pyme/02_ventas.webp" alt="Punto de venta"></button>
-      <button class="gallery-thumb" data-full="assets/pyme/04_inventario.webp" data-caption="Productos e Inventario"><img src="assets/pyme/04_inventario.webp" alt="Inventario"></button>
-      <button class="gallery-thumb" data-full="assets/pyme/05_reportes.webp" data-caption="Reportes y Auditoría"><img src="assets/pyme/05_reportes.webp" alt="Reportes"></button>
-      <button class="gallery-thumb" data-full="assets/pyme/03_compras.webp" data-caption="Compras y Abasto"><img src="assets/pyme/03_compras.webp" alt="Compras"></button>
-      <button class="gallery-thumb" data-full="assets/pyme/06_asesor.webp" data-caption="Asesor Comercial IA"><img src="assets/pyme/06_asesor.webp" alt="Asesor IA"></button>
+      <button class="gallery-thumb is-active" data-full="assets/omnimanager/01_landing.webp" data-caption="Omni Manager · Plataforma modular"><img src="assets/omnimanager/01_landing.webp" alt="Landing de Omni Manager"></button>
+      <button class="gallery-thumb" data-full="assets/omnimanager/02_rubros.webp" data-caption="Selección de rubro y módulos"><img src="assets/omnimanager/02_rubros.webp" alt="Rubros disponibles en Omni Manager"></button>
+      <button class="gallery-thumb" data-full="assets/omnimanager/03_dashboard.webp" data-caption="Dashboard · Botillería El Bolón"><img src="assets/omnimanager/03_dashboard.webp" alt="Dashboard de Botillería El Bolón"></button>
+      <button class="gallery-thumb" data-full="assets/omnimanager/04_pos.webp" data-caption="Punto de Venta (POS) · El Bolón"><img src="assets/omnimanager/04_pos.webp" alt="Punto de venta de El Bolón"></button>
+      <button class="gallery-thumb" data-full="assets/omnimanager/05_inventario.webp" data-caption="Productos e Inventario"><img src="assets/omnimanager/05_inventario.webp" alt="Inventario de Omni Manager"></button>
+      <button class="gallery-thumb" data-full="assets/omnimanager/06_reportes.webp" data-caption="Reportes y Auditoría"><img src="assets/omnimanager/06_reportes.webp" alt="Reportes de Botillería El Bolón"></button>
+      <button class="gallery-thumb" data-full="assets/omnimanager/07_asesor.webp" data-caption="Asesor de Negocio IA"><img src="assets/omnimanager/07_asesor.webp" alt="Asesor de negocio con IA"></button>
     </div>
   </div>
 
@@ -292,28 +299,26 @@
     <div class="reveal">
       <div class="case-block-title">Desafío</div>
       <p class="case-text">
-        Un almacén / botillería de barrio necesitaba dejar atrás el cuaderno y la planilla:
-        controlar <strong>ventas, boletas, inventario crítico y caja</strong> en una sola
-        herramienta simple, que funcionara incluso <strong>sin depender de internet</strong>
-        y mantuviera los datos del negocio bajo su control.
+        Una botillería con operación real necesitaba centralizar <strong>ventas, boletas,
+        inventario, stock crítico y caja</strong>, manteniendo la información disponible
+        desde distintos equipos y preparada para crecer a más locales.
       </p>
     </div>
     <div class="reveal reveal-1">
       <div class="case-block-title">Solución entregada</div>
       <p class="case-text">
-        Plataforma de gestión con <strong>punto de venta, control de inventario con stock
-        crítico, promociones, reportes con IVA y un asesor comercial con IA</strong> que responde
-        sobre los datos reales del negocio. Entregada para la operación real de
-        <strong>Botillería El Bolón</strong>, con su catálogo, ventas y métricas en vivo.
+        <strong>Omni Manager</strong> es una plataforma modular de gestión con punto de venta,
+        inventario persistente en la nube, apertura y cierre de caja, promociones, reportes,
+        lectura de códigos de barras y un asesor de negocio con IA. Opera en producción para
+        <strong>Botillería El Bolón</strong> con su catálogo, ventas y métricas reales.
       </p>
       <div class="stack-tags">
-        <span class="tag">Electron</span>
         <span class="tag">React 19</span>
         <span class="tag">TypeScript</span>
         <span class="tag">Vite</span>
+        <span class="tag">Cloud Run</span>
+        <span class="tag">Firestore</span>
         <span class="tag">Gemini AI</span>
-        <span class="tag">Recharts</span>
-        <span class="tag">PapaParse</span>
         <span class="tag">Multi-local</span>
       </div>
     </div>
@@ -490,8 +495,8 @@
 </section>
 
 <!-- Scripts -->
-<script src="scripts.js?v=20260615b" defer></script>
-<script type="module" src="dna.js"></script>
+<script src="scripts.js?v=20260820" defer></script>
+<script type="module" src="dna.js?v=20260820"></script>
 
 </body>
 </html>
