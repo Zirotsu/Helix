@@ -1988,45 +1988,32 @@ section {
 }
 
 /* ============================================================
-   QA CONTACT PATCH · SOLO WHATSAPP CENTRADO + ÍCONO FONT AWESOME
+   CONTACTO · MISMOS CANALES DEL PORTAFOLIO + CORREO
    ============================================================ */
 .contact-grid {
-  grid-template-columns: minmax(280px, 520px) !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   justify-content: center;
-  justify-items: stretch;
-  max-width: 620px !important;
+  max-width: 1040px !important;
   margin-left: auto;
   margin-right: auto;
 }
 
-.contact-grid .contact-card:not(:first-child) {
-  display: none !important;
-}
-
-.contact-grid .contact-card:first-child {
+.contact-grid .contact-card {
   display: flex;
   gap: 18px;
   align-items: center;
-  min-height: 132px;
+  min-height: 118px;
   cursor: pointer;
 }
 
-.contact-grid .contact-card:first-child::after {
-  content: none;
-}
-
-.contact-grid .contact-card:first-child .contact-label,
-.contact-grid .contact-card:first-child .contact-value {
+.contact-grid .contact-label,
+.contact-grid .contact-value {
   position: relative;
   z-index: 2;
 }
 
-.contact-grid .contact-card:first-child .contact-label {
-  margin-bottom: 0;
-}
-
-.contact-grid .contact-card:first-child .contact-value {
-  font-size: clamp(17px, 1.8vw, 22px);
+.contact-grid .contact-label {
+  margin-bottom: 6px;
 }
 
 @media (max-width: 720px) {
@@ -2035,22 +2022,23 @@ section {
     max-width: 100% !important;
   }
 
-  .contact-grid .contact-card:first-child {
+  .contact-grid .contact-card {
     min-height: 116px;
     column-gap: 16px;
   }
 }
 
 @media (max-width: 420px) {
-  .contact-grid .contact-card:first-child {
-    flex-direction: column;
-    text-align: center;
-    justify-items: center;
-    row-gap: 10px;
+  .contact-grid .contact-card {
+    padding: 18px;
+  }
+
+  .contact-grid .contact-value {
+    font-size: 14px;
   }
 }
 
-/* QA-CONTACT-FINAL-2026-05-23: contacto reducido a WhatsApp centrado con ícono Font Awesome. */
+/* CONTACTO-FINAL-2026-08-21: WhatsApp, Instagram, LinkedIn y correo visibles. */
 
 /* ============================================================
    AÑADIDOS · Landing/Portafolio separados (2026)
