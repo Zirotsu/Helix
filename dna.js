@@ -1,7 +1,7 @@
 /* ============================================================
    HELIX · dna.js
-   Fondo 3D de doble hélice (WebGL) en desktop.
-   En mobile/tablet usa un fallback liviano basado en imagen.
+   Fondo 3D de doble hélice (WebGL).
+   En mobile/tablet renderiza el mismo modelo una sola vez, sin animación.
    ============================================================ */
 
 const isMobileViewport = window.matchMedia(
