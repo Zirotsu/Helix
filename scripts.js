@@ -106,6 +106,114 @@
 })();
 
 /* ============================================================
+   SHOWCASE DE SOLUCIONES SEO
+   Mantiene las URLs indexables del HTML y convierte visualmente
+   el listado básico en una sección comercial integrada a HelixFix.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  const serviceSection = document.querySelector('#servicios');
+  if (!serviceSection) return;
+
+  const seoLink = serviceSection.querySelector('a[href="software-para-pymes-chile.html"]');
+  if (!seoLink) return;
+
+  const originalBlock = seoLink.closest('p');
+  if (!originalBlock) return;
+
+  const expectedUrls = [
+    'software-para-pymes-chile.html',
+    'automatizacion-de-procesos-chile.html',
+    'inteligencia-artificial-para-empresas-chile.html',
+    'software-a-medida-chile.html'
+  ];
+
+  const hasEverySeoLink = expectedUrls.every(url =>
+    originalBlock.querySelector(`a[href="${url}"]`)
+  );
+  if (!hasEverySeoLink) return;
+
+  if (!document.querySelector('link[data-solutions-showcase]')) {
+    const stylesheet = document.createElement('link');
+    stylesheet.rel = 'stylesheet';
+    stylesheet.href = 'solutions-showcase.css?v=20260824';
+    stylesheet.dataset.solutionsShowcase = 'true';
+    document.head.appendChild(stylesheet);
+  }
+
+  const showcase = document.createElement('div');
+  showcase.className = 'solutions-showcase reveal visible';
+  showcase.setAttribute('aria-labelledby', 'solutions-showcase-title');
+  showcase.innerHTML = `
+    <div class="solutions-showcase-head">
+      <div>
+        <div class="solutions-kicker">Explora · Soluciones</div>
+        <h3 class="solutions-title" id="solutions-showcase-title">
+          Tecnología construida alrededor <em>de tu negocio.</em>
+        </h3>
+      </div>
+      <p class="solutions-intro">
+        No adaptamos tu operación a una plantilla. Partimos del problema real y construimos
+        la solución que necesita tu empresa para vender, automatizar y crecer con control.
+      </p>
+    </div>
+
+    <div class="solutions-grid">
+      <a class="solution-card" href="software-para-pymes-chile.html" aria-label="Explorar software para pymes en Chile">
+        <div class="solution-card-top">
+          <span class="solution-index">01 / 04</span>
+          <span class="solution-icon" aria-hidden="true"><i class="fa-solid fa-layer-group"></i></span>
+        </div>
+        <div class="solution-card-body">
+          <h4>Software para Pymes</h4>
+          <p>Ventas, inventario, clientes, pedidos y caja conectados en una operación que puede crecer por módulos.</p>
+        </div>
+        <div class="solution-card-cta"><span>Explorar solución</span><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+      </a>
+
+      <a class="solution-card" href="automatizacion-de-procesos-chile.html" aria-label="Explorar automatización de procesos en Chile">
+        <div class="solution-card-top">
+          <span class="solution-index">02 / 04</span>
+          <span class="solution-icon" aria-hidden="true"><i class="fa-solid fa-gears"></i></span>
+        </div>
+        <div class="solution-card-body">
+          <h4>Automatización de Procesos</h4>
+          <p>Elimina tareas repetitivas, conecta sistemas dispersos y devuelve tiempo al equipo sin perder trazabilidad.</p>
+        </div>
+        <div class="solution-card-cta"><span>Automatizar operación</span><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+      </a>
+
+      <a class="solution-card" href="inteligencia-artificial-para-empresas-chile.html" aria-label="Explorar inteligencia artificial para empresas en Chile">
+        <div class="solution-card-top">
+          <span class="solution-index">03 / 04</span>
+          <span class="solution-icon" aria-hidden="true"><i class="fa-solid fa-brain"></i></span>
+        </div>
+        <div class="solution-card-body">
+          <h4>Inteligencia Artificial</h4>
+          <p>Agentes, orquestadores, análisis y asistentes IA aplicados donde generan valor operativo medible.</p>
+        </div>
+        <div class="solution-card-cta"><span>Conocer soluciones IA</span><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+      </a>
+
+      <a class="solution-card" href="software-a-medida-chile.html" aria-label="Explorar software a medida en Chile">
+        <div class="solution-card-top">
+          <span class="solution-index">04 / 04</span>
+          <span class="solution-icon" aria-hidden="true"><i class="fa-solid fa-code"></i></span>
+        </div>
+        <div class="solution-card-body">
+          <h4>Software a Medida</h4>
+          <p>Cuando una plataforma genérica ya no alcanza, construimos alrededor de tu proceso, tus datos y tus reglas.</p>
+        </div>
+        <div class="solution-card-cta"><span>Ver desarrollo a medida</span><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+      </a>
+    </div>
+  `;
+
+  originalBlock.replaceWith(showcase);
+})();
+
+/* ============================================================
    GALERÍA DE CASOS + LIGHTBOX  (agregado)
    ============================================================ */
 (function () {
