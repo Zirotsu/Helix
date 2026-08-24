@@ -30,8 +30,22 @@
   /* ------------------------------------------------------------
      2. NAV — Toggle hamburguesa + smooth scroll
      ------------------------------------------------------------ */
-  const navToggle = document.querySelector('.nav-toggle');
+  const nav = document.querySelector('nav');
   const navLinks = document.querySelector('.nav-links');
+  let navToggle = document.querySelector('.nav-toggle');
+
+  /* Las landing SEO comparten el mismo nav y este fallback garantiza
+     que el menú siga siendo usable en tablet/mobile aunque el HTML
+     de una página no incluya el botón explícitamente. */
+  if (!navToggle && nav && navLinks) {
+    navToggle = document.createElement('button');
+    navToggle.className = 'nav-toggle';
+    navToggle.type = 'button';
+    navToggle.setAttribute('aria-label', 'Abrir menú');
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.innerHTML = '<span></span><span></span><span></span>';
+    nav.insertBefore(navToggle, navLinks);
+  }
 
   if (navToggle && navLinks) {
     navToggle.addEventListener('click', () => {
