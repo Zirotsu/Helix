@@ -1,5 +1,9 @@
 RewriteEngine On
 
-# Canonical host: redirect www to the non-www domain.
+# Canonical home: only redirect when the browser explicitly requests /index.html.
+RewriteCond %{THE_REQUEST} \s/+index\.html(?:[\s?]|$) [NC]
+RewriteRule ^index\.html$ https://helix-fix.com/ [R=301,L,NE]
+
+# Canonical host: redirect www to the non-www domain while preserving the path.
 RewriteCond %{HTTP_HOST} ^www\.helix-fix\.com$ [NC]
 RewriteRule ^ https://helix-fix.com%{REQUEST_URI} [R=301,L,NE]
