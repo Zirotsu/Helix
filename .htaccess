@@ -1,5 +1,8 @@
 RewriteEngine On
 
+# Legacy Pyme landing now lives in OmniManager. Preserve any authority with a direct 301.
+RewriteRule ^software-para-pymes-chile\.html$ https://www.omnimanager.cl/ [R=301,L,NE]
+
 # Canonical home: only redirect when the browser explicitly requests /index.html.
 RewriteCond %{THE_REQUEST} \s/+index\.html(?:[\s?]|$) [NC]
 RewriteRule ^index\.html$ https://helix-fix.com/ [R=301,L,NE]
