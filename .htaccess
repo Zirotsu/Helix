@@ -27,3 +27,13 @@ RewriteRule ^ https://helix-fix.com%{REQUEST_URI} [R=301,L,NE]
   ExpiresByType text/css "access plus 30 days"
   ExpiresByType application/javascript "access plus 30 days"
 </IfModule>
+
+# dna.js is an interactive WebGL runtime and may change independently of page content.
+# Always revalidate it so fixes are not hidden behind the long static JS cache.
+<Files "dna.js">
+  <IfModule mod_headers.c>
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </IfModule>
+</Files>
