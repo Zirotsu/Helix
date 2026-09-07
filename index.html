@@ -261,22 +261,6 @@
 </section>
 
 <script src="/scripts.js?v=20260907" defer></script>
-<script>
-(() => {
-  const canvas = document.getElementById('dna-canvas');
-  if (canvas) canvas.style.background = "center / cover no-repeat url('/assets/dna.webp')";
-  const mobile = window.matchMedia('(max-width: 1024px), (hover: none) and (pointer: coarse)').matches;
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (mobile || reducedMotion) return;
-  const loadDNA = () => {
-    const script = document.createElement('script');
-    script.type = 'module';
-    script.src = '/dna.js?v=20260907';
-    document.body.appendChild(script);
-  };
-  if ('requestIdleCallback' in window) requestIdleCallback(loadDNA, { timeout: 1500 });
-  else window.addEventListener('load', loadDNA, { once: true });
-})();
-</script>
+<script type="module" src="/dna.js?v=20260907-restore"></script>
 </body>
 </html>
