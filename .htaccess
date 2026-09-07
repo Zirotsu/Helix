@@ -1,6 +1,13 @@
 RewriteEngine On
 
-# Canonical host and protocol: one permanent URL for every page.
+# La antigua oferta Pyme vive ahora en OmniManager.
+RewriteRule ^software-para-pymes-chile\.html$ https://www.omnimanager.cl/ [R=301,L,NE]
+
+# Evita una segunda URL para la home (/index.html y /).
+RewriteCond %{THE_REQUEST} \s/+index\.html(?:[?\s]) [NC]
+RewriteRule ^index\.html$ https://helix-fix.com/ [R=301,L,NE]
+
+# Canonical host and protocol: one permanent URL for every HelixFix page.
 RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} ^www\.helix-fix\.com$ [NC]
 RewriteRule ^ https://helix-fix.com%{REQUEST_URI} [R=301,L,NE]
