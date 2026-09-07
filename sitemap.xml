@@ -1,23 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://helix-fix.com/</loc>
     <lastmod>2026-09-05</lastmod>
+    <image:image>
+      <image:loc>https://helix-fix.com/assets/helixfix-logo-hero.png</image:loc>
+      <image:title>HelixFix Consultoría Tecnológica</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://helix-fix.com/portafolio.html</loc>
     <lastmod>2026-09-05</lastmod>
+    <image:image>
+      <image:loc>https://helix-fix.com/assets/zyphor/01_dashboard.webp</image:loc>
+      <image:title>Zyphor, plataforma multi-agente IA desarrollada por HelixFix</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://helix-fix.com/assets/omnimanager/01_landing.webp</image:loc>
+      <image:title>OmniManager, producto de gestión desarrollado por HelixFix</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://helix-fix.com/automatizacion-de-procesos-chile.html</loc>
-    <lastmod>2026-09-05</lastmod>
+    <lastmod>2026-09-07</lastmod>
   </url>
   <url>
     <loc>https://helix-fix.com/inteligencia-artificial-para-empresas-chile.html</loc>
-    <lastmod>2026-09-05</lastmod>
+    <lastmod>2026-09-07</lastmod>
+    <image:image>
+      <image:loc>https://helix-fix.com/assets/zyphor/01_dashboard.webp</image:loc>
+      <image:title>Zyphor, plataforma multi-agente de inteligencia artificial</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://helix-fix.com/software-a-medida-chile.html</loc>
-    <lastmod>2026-09-05</lastmod>
+    <lastmod>2026-09-07</lastmod>
   </url>
 </urlset>
