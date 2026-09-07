@@ -12,14 +12,17 @@ const isMobileViewport = window.matchMedia(
  * El mismo ADN 3D se renderiza en todos los dispositivos.
  * En mobile/tablet se dibuja una sola vez: sin giro por scroll,
  * sin parallax y sin bucle requestAnimationFrame.
+ *
+ * Las dependencias se cargan desde esm.sh con URLs absolutas para que el
+ * módulo funcione en cualquier página aunque esa página no declare importmap.
  */
-  import('https://unpkg.com/three@0.160.0/build/three.module.js').then(THREE_NS => {
+  import('https://esm.sh/three@0.160.0').then(THREE_NS => {
     return Promise.all([
       THREE_NS,
-      import('https://unpkg.com/three@0.160.0/examples/jsm/postprocessing/EffectComposer.js'),
-      import('https://unpkg.com/three@0.160.0/examples/jsm/postprocessing/RenderPass.js'),
-      import('https://unpkg.com/three@0.160.0/examples/jsm/postprocessing/UnrealBloomPass.js'),
-      import('https://unpkg.com/three@0.160.0/examples/jsm/postprocessing/OutputPass.js'),
+      import('https://esm.sh/three@0.160.0/examples/jsm/postprocessing/EffectComposer.js'),
+      import('https://esm.sh/three@0.160.0/examples/jsm/postprocessing/RenderPass.js'),
+      import('https://esm.sh/three@0.160.0/examples/jsm/postprocessing/UnrealBloomPass.js'),
+      import('https://esm.sh/three@0.160.0/examples/jsm/postprocessing/OutputPass.js'),
     ]);
   }).then(([THREE, ECMod, RPMod, UBPMod, OPMod]) => {
     const { EffectComposer } = ECMod;
